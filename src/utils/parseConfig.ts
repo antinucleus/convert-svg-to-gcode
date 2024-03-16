@@ -10,12 +10,18 @@ let config: Options;
 const processFileContents = (fileContents: string) => {
   config = JSON.parse(fileContents) as Options;
 
+  if (!config.svgFileName) {
+    throw new Error(`File name must be provided`);
+  }
+
   if (!config.initialCommand) {
     config.initialCommand = [];
   }
+
   if (typeof config.lineNumbering !== "boolean") {
     throw new Error(`"lineNumbering" must be true or false.`);
   }
+
   if (config.sampleCount < 0) {
     throw new Error(
       `"sampleCount" must be positive number. If it is 0, default value ${defaultSampleCount} will be used.`

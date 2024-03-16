@@ -1,5 +1,6 @@
 {
   "initialCommand": ["G90 G21 (Positioning = absolute, Unit = mm)"],
   "lineNumbering": false,
-  "sampleCount": 30
+  "sampleCount": 30,
+  "svgFileName": "image4.svg"
 }

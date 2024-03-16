@@ -10,7 +10,7 @@ export async function getFile(source) {
 
     fileContent = data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 
   return fileContent;

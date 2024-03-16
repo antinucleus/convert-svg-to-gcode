@@ -11,7 +11,9 @@ const filePath = node_path_1.default.join(__dirname, "../../src/config.json");
 let config;
 const processFileContents = (fileContents) => {
     config = JSON.parse(fileContents);
-    console.log({ config });
+    if (!config.svgFileName) {
+        throw new Error(`File name must be provided`);
+    }
     if (!config.initialCommand) {
         config.initialCommand = [];
     }
