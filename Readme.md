@@ -1,6 +1,8 @@
-# SVG to GCODE
+# CONVERT SVG TO GCODE
 
-_Aim of the this project is converting svg file to gcode file_
+## Introduction
+
+_Aim of the this project is converting svg file to gcode file._
 
 I did research for repos that convert to svg gcode. I tried some repos, but these repos weren't working properly. Some of them never worked, some of them worked, but the generated gcode had nothing to do with the original svg, so it was broken. Then I tried to understand how svg and gcode work. I came across a site that describes svg very well [svg-path-visualizer](https://svg-path-visualizer.netlify.app/) . By studying the examples here, after understanding how svg works, I started writing this repo that converts to gcode.
 
@@ -31,6 +33,8 @@ You can see the to-do list and how to use this repo below.
 6. You can test `output.gcode` file at [https://ncviewer.com/](ncviewer).
 
 ## NOTES
+
+### Currently, this repository converts cubic bezier curve, line and movement commands, both absolute and relative, to gcode.You can check to-do list. If your svg file includes different path or shape command it will not work.
 
 ### Unit conversion will be supported later.
 
