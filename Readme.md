@@ -15,18 +15,17 @@ You can see the to-do list and how to use this repo below.
 1. Clone the repository
    `git clone https://github.com/antinucleus/convert-svg-to-gcode.git`
 
-2. Change directory to repository file
+2. Change directory to repository folder
    `cd convert-svg-to-gcode`
 
-3. There is `config.json` file at root of the project and it includes **4** fields:
+3. There is `config.json` file at /src directory of the project and it includes **4** fields:
 
+   - `svgFileName`: A file name which will be converted to gcode. File must be in public directory. If it is not there, program will not work.
    - `initialCommand`: You can change initial command if it is neccessary or you can additional command to array.
-   - `linenumbering`: If it is true, line numbers will be added for each gcode command.
+   - `lineNumbering`: If it is true, line numbers will be added for each gcode command.
    - `sampleCount`: This value determines how curves will be smooth. Higher values provide smoothier curves but gcode generation takes longer time. If negative value is supplied, default value `30` will be taken.
-   - `svgFileName`: A file which will be converted to gcode. File must be in public directory. If it is not there, program will not work.
 
-4. Run command below
-   `npm run start`
+4. Run this command: `npm run start`
 
 5. If there is no error `output.gcode` file will be found at root directory.
 
@@ -43,6 +42,30 @@ You can see the to-do list and how to use this repo below.
 ## Examples
 
 You can check examples folder. `output.gcode` files in this directory are generated from svg file. These `output.gcode` files are tested at [ncviewer](https://ncviewer.com/) and result photos are added.
+
+
+<div style="display:flex;" align="center">
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image0/result.png" width="400"/>   
+   &nbsp;&nbsp;&nbsp;
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image1/result.png" width="400"/>   
+</div>
+
+<div style="display:flex;" align="center">
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image2/result.png" width="400"/>   
+   &nbsp;&nbsp;&nbsp;
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image3/result.png" width="400"/>   
+</div>
+
+<div style="display:flex;" align="center">
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image4/result.png" width="400"/>   
+   &nbsp;&nbsp;&nbsp;
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image5/result.png" width="400"/>   
+</div>
+
+
+</div>
+
+
 
 ## To-Do List
 
