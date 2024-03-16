@@ -1,0 +1,5 @@
+{
+  "initialCommand": ["G90 G21 (Positioning = absolute, Unit = mm)"],
+  "lineNumbering": false,
+  "sampleCount": 30
+}
