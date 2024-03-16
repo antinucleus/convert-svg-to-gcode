@@ -1,8 +1,14 @@
-import { svgCommandList, SvgCommand, GcodeCommand } from "../constants";
+import { SvgCommand, GcodeCommand } from "../constants";
 import { calculateCubicBezierCurvePoints } from "./cubicBezierCurveTo";
 import { pushGcode, getGcodes } from "./gcodeOperations";
+import { convertSvgCommandstoGcommands } from "./convertSvgCommandToGcommand";
 
 const previousPoint = { x: 0, y: 0 };
+
+const updatePreviousPoint = (x: number, y: number) => {
+  previousPoint.x = +x;
+  previousPoint.y = +y;
+};
 
 const pathProcess = (paths) => {
   for (const path of paths) {
@@ -85,38 +91,6 @@ const generateGcode = (commandList: string[]) => {
       }
     }
   }
-};
-
-const convertSvgCommandstoGcommands = (d) => {
-  const regex = new RegExp("\n", "g");
-  const commandList = [];
-  let currentChar = "";
-  let gCommand = "";
-
-  for (let i = 0; i < d.length; i++) {
-    currentChar = d[i];
-
-    if (svgCommandList.includes(currentChar) || i === d.length - 1) {
-      if (i === d.length - 1) {
-        gCommand += currentChar;
-      }
-      if (gCommand !== "") {
-        // console.log({ gCommand });
-        commandList.push(gCommand.replace(regex, " ").trim());
-        gCommand = "";
-      }
-      gCommand += currentChar.concat(" ");
-    } else {
-      gCommand += currentChar;
-    }
-  }
-
-  return commandList;
-};
-
-const updatePreviousPoint = (x: number, y: number) => {
-  previousPoint.x = +x;
-  previousPoint.y = +y;
 };
 
 export { pathProcess };
