@@ -44,6 +44,30 @@ You can see the to-do list and how to use this repo below.
 
 You can check examples folder. `output.gcode` files in this directory are generated from svg file. These `output.gcode` files are tested at [ncviewer](https://ncviewer.com/) and result photos are added.
 
+
+<div style="display:flex;" align="center">
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image0/result.png" width="400"/>   
+   &nbsp;&nbsp;&nbsp;
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image1/result.png" width="400"/>   
+</div>
+
+<div style="display:flex;" align="center">
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image2/result.png" width="400"/>   
+   &nbsp;&nbsp;&nbsp;
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image3/result.png" width="400"/>   
+</div>
+
+<div style="display:flex;" align="center">
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image4/result.png" width="400"/>   
+   &nbsp;&nbsp;&nbsp;
+   <img src="https://github.com/antinucleus/convert-svg-to-gcode/blob/main/examples/image5/result.png" width="400"/>   
+</div>
+
+
+</div>
+
+
+
 ## To-Do List
 
 - [ ] Convert digital units (px,pt...) to pyhsical units(mm,inch...)
