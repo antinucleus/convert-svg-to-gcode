@@ -5,13 +5,17 @@ import {
   nestedPath,
   pathProcess,
   saveGcodeFile,
-  getConfig,
+  checkConfigFile,
 } from "./utils";
+import { configStore } from "./stores";
 
-const { svgFileName } = getConfig();
+checkConfigFile();
+
+const {
+  config: { svgFileName },
+} = configStore();
 
 const fileDir = `./src/public/${svgFileName}`;
-
 const allPaths: Array<string | number> = [];
 
 getFile(fileDir)
@@ -24,4 +28,6 @@ getFile(fileDir)
     const gCodes = pathProcess(allPaths);
     saveGcodeFile(gCodes);
   })
-  .catch((error) => console.log(error));
+  .catch((error) => {
+    console.log(error);
+  });

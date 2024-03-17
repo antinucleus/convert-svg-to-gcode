@@ -1,6 +1,7 @@
 export type Options = {
-  lineNumbering?: boolean;
-  initialCommand?: [];
-  sampleCount?: number;
+  initialCommand: [];
+  lineNumbering: boolean;
+  sampleCount: number;
+  separator: string | null;
   svgFileName: string;
 };

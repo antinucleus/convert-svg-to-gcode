@@ -4,6 +4,7 @@ type BezierCurveParameters = {
   end: number[];
   sampleCount?: number;
 };
+
 function bezierCurve({
   start,
   controlPoints,

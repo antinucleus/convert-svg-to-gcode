@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getConfig = exports.nestedPath = exports.pathProcess = exports.saveGcodeFile = exports.getFile = exports.getBezierPoints = void 0;
+exports.checkConfigFile = exports.nestedPath = exports.pathProcess = exports.saveGcodeFile = exports.getFile = exports.getBezierPoints = void 0;
 var bezierCurvePointsGenerator_1 = require("./bezierCurvePointsGenerator");
 Object.defineProperty(exports, "getBezierPoints", { enumerable: true, get: function () { return bezierCurvePointsGenerator_1.getBezierPoints; } });
 var fileOperations_1 = require("./fileOperations");
@@ -11,5 +11,5 @@ Object.defineProperty(exports, "pathProcess", { enumerable: true, get: function 
 var svgPathFilter_1 = require("./svgPathFilter");
 Object.defineProperty(exports, "nestedPath", { enumerable: true, get: function () { return svgPathFilter_1.nestedPath; } });
 var parseConfig_1 = require("./parseConfig");
-Object.defineProperty(exports, "getConfig", { enumerable: true, get: function () { return parseConfig_1.getConfig; } });
+Object.defineProperty(exports, "checkConfigFile", { enumerable: true, get: function () { return parseConfig_1.checkConfigFile; } });
 //# sourceMappingURL=index.js.map

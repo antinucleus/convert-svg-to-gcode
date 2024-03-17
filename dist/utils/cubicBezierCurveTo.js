@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.calculateCubicBezierCurvePoints = void 0;
 const bezierCurvePointsGenerator_1 = require("./bezierCurvePointsGenerator");
-const parseConfig_1 = require("./parseConfig");
-const constants_1 = require("../constants");
-let { sampleCount } = (0, parseConfig_1.getConfig)();
-sampleCount = sampleCount ? sampleCount : constants_1.defaultSampleCount;
-const calculateCubicBezierCurvePoints = (points, previousPoint, updatePreviousPoint, absolute) => {
+const stores_1 = require("../stores");
+const { previousPoint, updatePreviousPoint } = (0, stores_1.previousPointStore)();
+const { updatePreviousCurveEndControlPoint } = (0, stores_1.previousCurveEndPointStore)();
+const { config: { sampleCount }, } = (0, stores_1.configStore)();
+const calculateCubicBezierCurvePoints = (points, absolute) => {
     let start;
     let end;
     let controlPoints;
@@ -49,6 +49,10 @@ const calculateCubicBezierCurvePoints = (points, previousPoint, updatePreviousPo
         });
         allCurvePoints.push(curvePoints);
         updatePreviousPoint(end[0], end[1]);
+        updatePreviousCurveEndControlPoint({
+            x: controlPoints[1][0],
+            y: controlPoints[1][1],
+        });
     }
     return allCurvePoints;
 };

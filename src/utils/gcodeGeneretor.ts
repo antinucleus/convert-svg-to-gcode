@@ -1,14 +1,11 @@
 import { SvgCommand, GcodeCommand } from "../constants";
-import { calculateCubicBezierCurvePoints } from "./cubicBezierCurveTo";
 import { pushGcode, getGcodes } from "./gcodeOperations";
 import { convertSvgCommandstoGcommands } from "./convertSvgCommandToGcommand";
+import { calculateCubicBezierCurvePoints } from "./cubicBezierCurveTo";
+import { calculateSmoothCubicBezierCurvePoints } from "./smoothCubicBezierCurveTo";
+import { previousPointStore } from "../stores";
 
-const previousPoint = { x: 0, y: 0 };
-
-const updatePreviousPoint = (x: number, y: number) => {
-  previousPoint.x = +x;
-  previousPoint.y = +y;
-};
+const { previousPoint, updatePreviousPoint } = previousPointStore();
 
 const pathProcess = (paths) => {
   for (const path of paths) {
@@ -24,7 +21,7 @@ const generateGcode = (commandList: string[]) => {
 
   for (const command of commandList) {
     const points = command.split(" ").splice(1);
-    const cmd = command[0];
+    const cmd = command[0] as SvgCommand;
 
     if (cmd === SvgCommand.M) {
       x = +points[0];
@@ -58,10 +55,30 @@ const generateGcode = (commandList: string[]) => {
         updatePreviousPoint(x, y);
       }
     } else if (cmd === SvgCommand.C) {
-      const allCurvePoints = calculateCubicBezierCurvePoints(
+      const allCurvePoints = calculateCubicBezierCurvePoints(points, true);
+
+      for (const curve of allCurvePoints) {
+        for (const cp of curve) {
+          x = cp[0];
+          y = cp[1];
+
+          pushGcode(cmd, GcodeCommand.G1, x, y);
+        }
+      }
+    } else if (cmd === SvgCommand.c) {
+      const allCurvePoints = calculateCubicBezierCurvePoints(points, false);
+
+      for (const curve of allCurvePoints) {
+        for (const cp of curve) {
+          x = cp[0];
+          y = cp[1];
+
+          pushGcode(cmd, GcodeCommand.G1, x, y);
+        }
+      }
+    } else if (cmd === SvgCommand.S) {
+      const allCurvePoints = calculateSmoothCubicBezierCurvePoints(
         points,
-        previousPoint,
-        updatePreviousPoint,
         true
       );
 
@@ -73,11 +90,9 @@ const generateGcode = (commandList: string[]) => {
           pushGcode(cmd, GcodeCommand.G1, x, y);
         }
       }
-    } else if (cmd === SvgCommand.c) {
-      const allCurvePoints = calculateCubicBezierCurvePoints(
+    } else if (cmd === SvgCommand.s) {
+      const allCurvePoints = calculateSmoothCubicBezierCurvePoints(
         points,
-        previousPoint,
-        updatePreviousPoint,
         false
       );
 

@@ -1,2 +1,2 @@
-export { PreviousPoint, UpdatePreviousPoint } from "./previosPoint";
+export { Point } from "./point";
 export { Options } from "./options";

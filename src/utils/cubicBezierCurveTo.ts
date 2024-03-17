@@ -1,15 +1,18 @@
-import { PreviousPoint, UpdatePreviousPoint } from "../types";
 import { getBezierPoints } from "./bezierCurvePointsGenerator";
-import { getConfig } from "./parseConfig";
-import { defaultSampleCount } from "../constants";
+import {
+  previousPointStore,
+  previousCurveEndPointStore,
+  configStore,
+} from "../stores";
 
-let { sampleCount } = getConfig();
-sampleCount = sampleCount ? sampleCount : defaultSampleCount;
+const { previousPoint, updatePreviousPoint } = previousPointStore();
+const { updatePreviousCurveEndControlPoint } = previousCurveEndPointStore();
+const {
+  config: { sampleCount },
+} = configStore();
 
 const calculateCubicBezierCurvePoints = (
   points: string[],
-  previousPoint: PreviousPoint,
-  updatePreviousPoint: UpdatePreviousPoint,
   absolute: boolean
 ) => {
   let start: number[];
@@ -57,8 +60,13 @@ const calculateCubicBezierCurvePoints = (
       end,
       sampleCount,
     });
+
     allCurvePoints.push(curvePoints);
     updatePreviousPoint(end[0], end[1]);
+    updatePreviousCurveEndControlPoint({
+      x: controlPoints[1][0],
+      y: controlPoints[1][1],
+    });
   }
 
   return allCurvePoints;

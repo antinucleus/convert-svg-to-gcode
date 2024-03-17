@@ -1,15 +1,18 @@
-const absoluteCommands = ["M", "L", "C"];
-const relativeCommands = ["m", "l", "c"];
+const absoluteCommands = ["M", "L", "C", "S"];
+const relativeCommands = ["m", "l", "c", "s"];
 const svgCommandList = absoluteCommands.concat(relativeCommands);
-const defaultSampleCount = 30;
+const defaultSampleCount: number = 30;
 
 enum SvgCommand {
+  __ = "", // Empty
   M = "M", // Absolute move to
   L = "L", // Absolute line to
   C = "C", // Absolute cubic bezier curve to
+  S = "S", // Absolute smooth cubic bezier curve to
   m = "m", // Relative move to
   l = "l", // Relative line to
   c = "c", // Relative cubic bezier curve to
+  s = "s", // Relative smooth cubic bezier curve to
 }
 
 enum GcodeCommand {

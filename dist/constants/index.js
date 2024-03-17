@@ -1,20 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GcodeCommand = exports.SvgCommand = exports.defaultSampleCount = exports.svgCommandList = void 0;
-const absoluteCommands = ["M", "L", "C"];
-const relativeCommands = ["m", "l", "c"];
+const absoluteCommands = ["M", "L", "C", "S"];
+const relativeCommands = ["m", "l", "c", "s"];
 const svgCommandList = absoluteCommands.concat(relativeCommands);
 exports.svgCommandList = svgCommandList;
 const defaultSampleCount = 30;
 exports.defaultSampleCount = defaultSampleCount;
 var SvgCommand;
 (function (SvgCommand) {
+    SvgCommand["__"] = "";
     SvgCommand["M"] = "M";
     SvgCommand["L"] = "L";
     SvgCommand["C"] = "C";
+    SvgCommand["S"] = "S";
     SvgCommand["m"] = "m";
     SvgCommand["l"] = "l";
     SvgCommand["c"] = "c";
+    SvgCommand["s"] = "s";
 })(SvgCommand || (exports.SvgCommand = SvgCommand = {}));
 var GcodeCommand;
 (function (GcodeCommand) {
