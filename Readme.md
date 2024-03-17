@@ -21,19 +21,21 @@ You can see the to-do list and how to use this repo below.
 3. Change directory to repository folder
    `cd convert-svg-to-gcode`
 
-4. There is `config.json` file at /src directory of the project and it includes **4** fields:
+4. Copy the SVG file you want to convert to `convert-svg-to-gcode/src/public` directory. If the file is not there, program will not work.
 
-   - `svgFileName`: A file name which will be converted to gcode. File must be in public directory. If it is not there, program will not work.
+5. There is `config.json` file at /src directory of the project and it includes fields below:
+
+   - `svgFileName`: A file name which will be converted to gcode. File must be in public directory as described above. If it is not there, program will not work.
    - `initialCommand`: You can change initial command if it is neccessary or you can additional command to array.
    - `lineNumbering`: If it is true, line numbers will be added for each gcode command.
    - `sampleCount`: This value determines how curves will be smooth. Higher values provide smoothier curves but gcode generation takes longer time. If negative value is supplied, default value `30` will be taken.
    - `separator`: Some SVG files use comma for separating path values. If SVG file includes comma or another separator, set this field.
 
-5. Run this command: `npm run start`
+6. Run this command `npm run start`
 
-6. If there is no error `output.gcode` file will be found at root directory.
+7. If there is no error `output.gcode` file will be found at root directory.
 
-7. You can test `output.gcode` file at [https://ncviewer.com/](ncviewer).
+8. You can test `output.gcode` file at [https://ncviewer.com/](ncviewer).
 
 ## NOTES
 
