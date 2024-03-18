@@ -1,10 +1,10 @@
-import { getBezierPoints } from "./bezierCurvePointsGenerator";
 import { SvgCommand } from "../constants";
 import { reflectPoint } from "./curveHelpers";
+import { getBezierPoints } from "./bezierCurvePointsGenerator";
 import {
+  previousPointStore,
   previousCurveEndPointStore,
   previousSvgCommandStore,
-  previousPointStore,
   configStore,
 } from "../stores";
 
@@ -16,29 +16,24 @@ const {
   config: { sampleCount },
 } = configStore();
 
-const calculateSmoothCubicBezierCurvePoints = (
+const calculateSmoothQuadraticBezierCurvePoints = (
   points: number[],
   absolute: boolean
 ) => {
   let start: number[];
   let end: number[];
   let startControlPoint: number[];
-  let endControlPoint: number[];
   let controlPoints: Array<Array<number>>;
   const allCurvePoints: Array<Array<Array<number>>> = [];
 
-  for (let i = 0; i < points.length; i += 4) {
+  for (let i = 0; i < points.length; i += 2) {
     start = [previousPoint.x, previousPoint.y];
-    endControlPoint = [
-      absolute ? points[i] : previousPoint.x + points[i],
-      absolute ? points[i + 1] : previousPoint.y + points[i + 1],
-    ];
 
     if (
-      previousSvgCommand.cmd === SvgCommand.C ||
-      previousSvgCommand.cmd === SvgCommand.c ||
-      previousSvgCommand.cmd === SvgCommand.S ||
-      previousSvgCommand.cmd === SvgCommand.s
+      previousSvgCommand.cmd === SvgCommand.Q ||
+      previousSvgCommand.cmd === SvgCommand.q ||
+      previousSvgCommand.cmd === SvgCommand.T ||
+      previousSvgCommand.cmd === SvgCommand.t
     ) {
       startControlPoint = reflectPoint({
         point: previousCurveEndControlPoint,
@@ -48,11 +43,11 @@ const calculateSmoothCubicBezierCurvePoints = (
       startControlPoint = start;
     }
 
-    controlPoints = [startControlPoint, endControlPoint];
+    controlPoints = [startControlPoint, startControlPoint];
 
     end = [
-      absolute ? points[i + 2] : previousPoint.x + points[i + 2],
-      absolute ? points[i + 3] : previousPoint.y + points[i + 3],
+      absolute ? points[i] : previousPoint.x + points[i],
+      absolute ? points[i + 1] : previousPoint.y + points[i + 1],
     ];
 
     const curvePoints = getBezierPoints({
@@ -65,12 +60,12 @@ const calculateSmoothCubicBezierCurvePoints = (
     allCurvePoints.push(curvePoints);
     updatePreviousPoint(end[0], end[1]);
     updatePreviousCurveEndControlPoint({
-      x: endControlPoint[0],
-      y: endControlPoint[1],
+      x: controlPoints[1][0],
+      y: controlPoints[1][1],
     });
   }
 
   return allCurvePoints;
 };
 
-export { calculateSmoothCubicBezierCurvePoints };
+export { calculateSmoothQuadraticBezierCurvePoints };

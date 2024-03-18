@@ -16,6 +16,7 @@ const {
 } = configStore();
 
 const fileDir = `./src/public/${svgFileName}`;
+
 const allPaths: Array<string | number> = [];
 
 getFile(fileDir)

@@ -6,10 +6,10 @@ import { defaultSampleCount } from "../constants";
 import { configStore } from "../stores";
 
 const filePath = path.join(__dirname, "../../src/config.json");
-let config: Options;
-const { updateConfig } = configStore();
 
+let config: Options;
 const processFileContents = (fileContents: string) => {
+  const { updateConfig } = configStore();
   config = JSON.parse(fileContents) as Options;
 
   if (!config.svgFileName) {
@@ -38,12 +38,6 @@ const processFileContents = (fileContents: string) => {
     throw new Error(
       `"sampleCount" value must be positive number. If it is 0, default value ${defaultSampleCount} will be used.`
     );
-  }
-
-  if (!config.separator) {
-    config.separator = null;
-  } else if (typeof config.separator !== "string") {
-    throw new Error(`"separator" value must be string.`);
   }
 
   console.log("\nConfig: ", config);

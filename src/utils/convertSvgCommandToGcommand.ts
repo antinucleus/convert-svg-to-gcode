@@ -1,42 +1,50 @@
 import { svgCommandList } from "../constants";
-import { configStore } from "../stores";
-
-const {
-  config: { separator },
-} = configStore();
 
 const convertSvgCommandstoGcommands = (d: string[], log = false) => {
-  const regex = new RegExp("\n", "g");
   const commandList = [];
   let currentChar = "";
   let gCommand = "";
+  let cmd = "";
 
   for (let i = 0; i < d.length; i++) {
-    if (separator && d[i] === separator) {
-      currentChar = " ";
-    } else {
-      currentChar = d[i];
-    }
+    currentChar = d[i];
 
     if (svgCommandList.includes(currentChar) || i === d.length - 1) {
-      if (i === d.length - 1) {
-        gCommand += currentChar;
-      }
-
       if (gCommand !== "") {
         if (log) {
           console.log({ gCommand });
         }
-        commandList.push(gCommand.replace(regex, " ").trim());
+
+        gCommand = gCommand.trim();
+
+        const res: Array<number | string> = extractNumbersFromString(gCommand);
+        res.unshift(cmd);
+
+        commandList.push(res);
         gCommand = "";
       }
-      gCommand += currentChar.concat(" ");
+      cmd = currentChar;
     } else {
+      if (currentChar === "\n") {
+        currentChar = " ";
+      }
+
+      if (currentChar === "Z" || currentChar === "z") {
+        currentChar = "";
+      }
+
       gCommand += currentChar;
     }
   }
 
   return commandList;
 };
+
+function extractNumbersFromString(inputString) {
+  const regex = /(?:-?\d+(?:\.\d+)?|-?\.\d+)/g;
+  const matches = inputString.match(regex);
+
+  return matches.map((match) => parseFloat(match));
+}
 
 export { convertSvgCommandstoGcommands };

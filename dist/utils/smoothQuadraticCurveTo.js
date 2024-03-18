@@ -1,31 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.calculateSmoothCubicBezierCurvePoints = void 0;
-const bezierCurvePointsGenerator_1 = require("./bezierCurvePointsGenerator");
+exports.calculateSmoothQuadraticBezierCurvePoints = void 0;
 const constants_1 = require("../constants");
 const curveHelpers_1 = require("./curveHelpers");
+const bezierCurvePointsGenerator_1 = require("./bezierCurvePointsGenerator");
 const stores_1 = require("../stores");
 const { previousPoint, updatePreviousPoint } = (0, stores_1.previousPointStore)();
 const { previousSvgCommand } = (0, stores_1.previousSvgCommandStore)();
 const { previousCurveEndControlPoint, updatePreviousCurveEndControlPoint } = (0, stores_1.previousCurveEndPointStore)();
 const { config: { sampleCount }, } = (0, stores_1.configStore)();
-const calculateSmoothCubicBezierCurvePoints = (points, absolute) => {
+const calculateSmoothQuadraticBezierCurvePoints = (points, absolute) => {
     let start;
     let end;
     let startControlPoint;
-    let endControlPoint;
     let controlPoints;
     const allCurvePoints = [];
-    for (let i = 0; i < points.length; i += 4) {
+    for (let i = 0; i < points.length; i += 2) {
         start = [previousPoint.x, previousPoint.y];
-        endControlPoint = [
-            absolute ? points[i] : previousPoint.x + points[i],
-            absolute ? points[i + 1] : previousPoint.y + points[i + 1],
-        ];
-        if (previousSvgCommand.cmd === constants_1.SvgCommand.C ||
-            previousSvgCommand.cmd === constants_1.SvgCommand.c ||
-            previousSvgCommand.cmd === constants_1.SvgCommand.S ||
-            previousSvgCommand.cmd === constants_1.SvgCommand.s) {
+        if (previousSvgCommand.cmd === constants_1.SvgCommand.Q ||
+            previousSvgCommand.cmd === constants_1.SvgCommand.q ||
+            previousSvgCommand.cmd === constants_1.SvgCommand.T ||
+            previousSvgCommand.cmd === constants_1.SvgCommand.t) {
             startControlPoint = (0, curveHelpers_1.reflectPoint)({
                 point: previousCurveEndControlPoint,
                 respectTo: previousPoint,
@@ -34,10 +29,10 @@ const calculateSmoothCubicBezierCurvePoints = (points, absolute) => {
         else {
             startControlPoint = start;
         }
-        controlPoints = [startControlPoint, endControlPoint];
+        controlPoints = [startControlPoint, startControlPoint];
         end = [
-            absolute ? points[i + 2] : previousPoint.x + points[i + 2],
-            absolute ? points[i + 3] : previousPoint.y + points[i + 3],
+            absolute ? points[i] : previousPoint.x + points[i],
+            absolute ? points[i + 1] : previousPoint.y + points[i + 1],
         ];
         const curvePoints = (0, bezierCurvePointsGenerator_1.getBezierPoints)({
             start,
@@ -48,11 +43,11 @@ const calculateSmoothCubicBezierCurvePoints = (points, absolute) => {
         allCurvePoints.push(curvePoints);
         updatePreviousPoint(end[0], end[1]);
         updatePreviousCurveEndControlPoint({
-            x: endControlPoint[0],
-            y: endControlPoint[1],
+            x: controlPoints[1][0],
+            y: controlPoints[1][1],
         });
     }
     return allCurvePoints;
 };
-exports.calculateSmoothCubicBezierCurvePoints = calculateSmoothCubicBezierCurvePoints;
-//# sourceMappingURL=smoothCubicBezierCurveTo.js.map
+exports.calculateSmoothQuadraticBezierCurvePoints = calculateSmoothQuadraticBezierCurvePoints;
+//# sourceMappingURL=smoothQuadraticCurveTo.js.map

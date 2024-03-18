@@ -10,8 +10,8 @@ const constants_1 = require("../constants");
 const stores_1 = require("../stores");
 const filePath = node_path_1.default.join(__dirname, "../../src/config.json");
 let config;
-const { updateConfig } = (0, stores_1.configStore)();
 const processFileContents = (fileContents) => {
+    const { updateConfig } = (0, stores_1.configStore)();
     config = JSON.parse(fileContents);
     if (!config.svgFileName) {
         throw new Error(`"svgFileName" field must be provided.`);
@@ -39,12 +39,6 @@ const processFileContents = (fileContents) => {
     }
     else if (config.sampleCount < 0) {
         throw new Error(`"sampleCount" value must be positive number. If it is 0, default value ${constants_1.defaultSampleCount} will be used.`);
-    }
-    if (!config.seperator) {
-        config.seperator = null;
-    }
-    else if (typeof config.seperator !== "string") {
-        throw new Error(`"seperator" value must be string.`);
     }
     console.log("\nConfig: ", config);
     updateConfig(config);

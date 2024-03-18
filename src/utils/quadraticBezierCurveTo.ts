@@ -11,7 +11,7 @@ const {
   config: { sampleCount },
 } = configStore();
 
-const calculateCubicBezierCurvePoints = (
+const calculateQuadraticBezierCurvePoints = (
   points: number[],
   absolute: boolean
 ) => {
@@ -20,7 +20,7 @@ const calculateCubicBezierCurvePoints = (
   let controlPoints: Array<Array<number>>;
   const allCurvePoints: Array<Array<Array<number>>> = [];
 
-  for (let i = 0; i < points.length; i += 6) {
+  for (let i = 0; i < points.length; i += 4) {
     start = [previousPoint.x, previousPoint.y];
 
     controlPoints = [
@@ -29,14 +29,14 @@ const calculateCubicBezierCurvePoints = (
         absolute ? points[i + 1] : previousPoint.y + points[i + 1],
       ],
       [
-        absolute ? points[i + 2] : previousPoint.x + points[i + 2],
-        absolute ? points[i + 3] : previousPoint.y + points[i + 3],
+        absolute ? points[i] : previousPoint.x + points[i],
+        absolute ? points[i + 1] : previousPoint.y + points[i + 1],
       ],
     ];
 
     end = [
-      absolute ? points[i + 4] : previousPoint.x + points[i + 4],
-      absolute ? points[i + 5] : previousPoint.y + points[i + 5],
+      absolute ? points[i + 2] : previousPoint.x + points[i + 2],
+      absolute ? points[i + 3] : previousPoint.y + points[i + 3],
     ];
 
     const curvePoints = getBezierPoints({
@@ -57,4 +57,4 @@ const calculateCubicBezierCurvePoints = (
   return allCurvePoints;
 };
 
-export { calculateCubicBezierCurvePoints };
+export { calculateQuadraticBezierCurvePoints };

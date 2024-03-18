@@ -4,7 +4,6 @@ const initialValues: Options = {
   initialCommand: [],
   lineNumbering: false,
   sampleCount: 30,
-  separator: null,
   svgFileName: "",
 };
 

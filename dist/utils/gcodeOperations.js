@@ -12,15 +12,15 @@ if (initialCommand.length > 0) {
     }
 }
 const pushGcode = (svgcmd, gcodecmd, x, y, comment, log = false) => {
+    if (log) {
+        console.log(`[${svgcmd} - CODE]:`, { x, y });
+    }
     if (isNaN(x) || isNaN(y)) {
-        throw Error(`Gcode points (x,y) cannot be "NaN"!. If svg file path values seperated with comma (,) or another seperator, set value of "seperator" field to this seperator in "config.json" file.`);
+        throw Error(`Gcode points (x,y) cannot be "NaN"!`);
     }
     const gcode = `${lineNumbering ? `N${gCodes.length + 1}` : ""} ${gcodecmd} X${x} Y${y} Z0 ${comment ? `(${comment})` : ""}`;
     gCodes.push(gcode);
     updatePreviousSvgCommand(svgcmd);
-    if (log) {
-        console.log(`[${svgcmd} - CODE]:`, gcode);
-    }
 };
 exports.pushGcode = pushGcode;
 const getGcodes = () => gCodes;

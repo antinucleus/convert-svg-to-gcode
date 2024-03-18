@@ -6,7 +6,7 @@ _Aim of the this project is converting svg file to gcode file._
 
 I did research for repos that convert to svg gcode. I tried some repos, but these repos weren't working properly. Some of them never worked, some of them worked, but the generated gcode had nothing to do with the original svg, so it was broken. Then I tried to understand how svg and gcode work. I came across a site that describes svg very well [svg-path-visualizer](https://svg-path-visualizer.netlify.app/) . By studying the examples here, after understanding how svg works, I started writing this repo that converts to gcode.
 
-Currently, this repository converts movement, line, cubic bezier curve and smooth cubic bezier curve commands, both absolute and relative, to gcode. I will make this repo capable of processing all the svg commands used for the path element. Later, I will add the codes that convert the tags used specifically for the shapes to gcode.
+Currently, this repository converts movement, line, cubic bezier curve, smooth cubic bezier curve, quadratic bezier curve, and smooth quadratic bezier curve commands, both absolute and relative, to gcode. I will make this repo capable of processing all the svg commands used for the path element. Later, I will add the codes that convert the tags used specifically for the shapes to gcode.
 
 You can see the to-do list and how to use this repo below.
 
@@ -29,7 +29,6 @@ You can see the to-do list and how to use this repo below.
    - `initialCommand`: You can change initial command if it is neccessary or you can additional command to array.
    - `lineNumbering`: If it is true, line numbers will be added for each gcode command.
    - `sampleCount`: This value determines how curves will be smooth. Higher values provide smoothier curves but gcode generation takes longer time. If negative value is supplied, default value `30` will be taken.
-   - `separator`: Some SVG files use comma for separating path values. If SVG file includes comma or another separator, set this field.
 
 6. Run this command `npm run start`
 
@@ -39,7 +38,7 @@ You can see the to-do list and how to use this repo below.
 
 ## NOTES
 
-### Currently, this repository converts movement, line, cubic bezier curve and smooth cubic bezier curve commands, both absolute and relative, to gcode.You can check to-do list. If your svg file includes different path or shape command it will not work.
+### Currently, this repository converts movement, line, cubic bezier curve, smooth cubic bezier curve, quadratic bezier curve, and smooth quadratic bezier curve commands, both absolute and relative, to gcode.You can check to-do list. If your svg file includes different path or shape command it will not work.
 
 ### Unit conversion will be supported later.
 
@@ -95,12 +94,12 @@ You can check examples folder. `output.gcode` files in this directory are genera
 - [x] Support conversion of `c` command (Relative Cubic Bezier Curve To)
 - [x] Support conversion of `S` command (Absolute Smooth Cubic Bezier Curve To)
 - [x] Support conversion of `s` command (Relative Smooth Cubic Bezier Curve To )
-- [ ] Support conversion of `Q` command (Absolute Quadratic Bezier Curve To)
-- [ ] Support conversion of `q` command (Relative Quadratic Bezier Curve To)
-- [ ] Support conversion of `T` command (Absolute Smooth Quadratic Bezier Curve To)
-- [ ] Support conversion of `t` command (Relative Smooth Quadratic Bezier Curve To)
-- [ ] Support conversion of `A` command (Absolute Elliptical Arc)
-- [ ] Support conversion of `a` command (Relative Elliptical Arc)
+- [x] Support conversion of `Q` command (Absolute Quadratic Bezier Curve To)
+- [x] Support conversion of `q` command (Relative Quadratic Bezier Curve To)
+- [x] Support conversion of `T` command (Absolute Smooth Quadratic Bezier Curve To)
+- [x] Support conversion of `t` command (Relative Smooth Quadratic Bezier Curve To)
+- [ ] Support conversion of `A` command (Absolute Elliptical Arc To)
+- [ ] Support conversion of `a` command (Relative Elliptical Arc To)
 
 > #### Basic Shapes
 

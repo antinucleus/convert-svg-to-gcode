@@ -5,7 +5,6 @@ const initialValues = {
     initialCommand: [],
     lineNumbering: false,
     sampleCount: 30,
-    seperator: null,
     svgFileName: "",
 };
 let config = initialValues;

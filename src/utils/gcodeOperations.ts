@@ -23,10 +23,12 @@ const pushGcode = (
   comment?: string,
   log: boolean = false
 ): void | Error => {
+  if (log) {
+    console.log(`[${svgcmd} - CODE]:`, { x, y });
+  }
+
   if (isNaN(x) || isNaN(y)) {
-    throw Error(
-      `Gcode points (x,y) cannot be "NaN"!. If svg file path values seperated with comma (,) or another separator, set value of "separator" field to this separator in "config.json" file.`
-    );
+    throw Error(`Gcode points (x,y) cannot be "NaN"!`);
   }
 
   const gcode = `${
@@ -35,10 +37,6 @@ const pushGcode = (
 
   gCodes.push(gcode);
   updatePreviousSvgCommand(svgcmd);
-
-  if (log) {
-    console.log(`[${svgcmd} - CODE]:`, gcode);
-  }
 };
 
 const getGcodes = (): string[] => gCodes;
