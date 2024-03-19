@@ -6,7 +6,7 @@ _Aim of the this project is converting svg file to gcode file._
 
 I did research for repos that convert to svg gcode. I tried some repos, but these repos weren't working properly. Some of them never worked, some of them worked, but the generated gcode had nothing to do with the original svg, so it was broken. Then I tried to understand how svg and gcode work. I came across a site that describes svg very well [svg-path-visualizer](https://svg-path-visualizer.netlify.app/) . By studying the examples here, after understanding how svg works, I started writing this repo that converts to gcode.
 
-Currently, this repository converts movement, line, cubic bezier curve, smooth cubic bezier curve, quadratic bezier curve, and smooth quadratic bezier curve commands, both absolute and relative, to gcode. I will make this repo capable of processing all the svg commands used for the path element. Later, I will add the codes that convert the tags used specifically for the shapes to gcode.
+Currently, this repository converts movement, line, horizontal line, vertical line, cubic bezier curve, smooth cubic bezier curve, quadratic bezier curve, and smooth quadratic bezier curve commands, both absolute and relative, to gcode. I will make this repo capable of processing all the svg commands used for the path element. Later, I will add the codes that convert the tags used specifically for the shapes to gcode.
 
 You can see the to-do list and how to use this repo below.
 
@@ -38,7 +38,7 @@ You can see the to-do list and how to use this repo below.
 
 ## NOTES
 
-### Currently, this repository converts movement, line, cubic bezier curve, smooth cubic bezier curve, quadratic bezier curve, and smooth quadratic bezier curve commands, both absolute and relative, to gcode.You can check to-do list. If your svg file includes different path or shape command it will not work.
+### Currently, this repository converts movement, line, horizontal line, vertical line, cubic bezier curve, smooth cubic bezier curve, quadratic bezier curve, and smooth quadratic bezier curve commands, both absolute and relative, to gcode.You can check to-do list. If your svg file includes different path or shape command it will not work.
 
 ### Unit conversion will be supported later.
 
