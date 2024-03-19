@@ -5,8 +5,8 @@ import { calculateCubicBezierCurvePoints } from "./cubicBezierCurveTo";
 import { calculateSmoothCubicBezierCurvePoints } from "./smoothCubicBezierCurveTo";
 import { calculateQuadraticBezierCurvePoints } from "./quadraticBezierCurveTo";
 import { calculateSmoothQuadraticBezierCurvePoints } from "./smoothQuadraticCurveTo";
-import { previousPointStore } from "../stores";
 import { lineTo } from "./lineTo";
+import { moveTo } from "./moveTo";
 
 const pathProcess = (paths) => {
   for (const path of paths) {
@@ -18,25 +18,16 @@ const pathProcess = (paths) => {
 };
 
 const generateGcode = (commandList: any[]) => {
-  const { previousPoint, updatePreviousPoint } = previousPointStore();
   let x: number, y: number;
 
   for (const command of commandList) {
     const cmd = command[0] as SvgCommand;
     const points = command.splice(1);
 
-    if (cmd === SvgCommand.M) {
-      x = points[0];
-      y = points[1];
+    if (cmd === SvgCommand.M || cmd === SvgCommand.m) {
+      const moveToPoints = moveTo(points, cmd);
 
-      pushGcode(cmd, GcodeCommand.G0, x, y);
-      updatePreviousPoint(x, y);
-    } else if (cmd === SvgCommand.m) {
-      x = previousPoint.x + points[0];
-      y = previousPoint.y + points[1];
-
-      pushGcode(cmd, GcodeCommand.G0, x, y);
-      updatePreviousPoint(x, y);
+      pushGcode(cmd, GcodeCommand.G0, moveToPoints[0], moveToPoints[1]);
     } else if (cmd === SvgCommand.L || cmd === SvgCommand.l) {
       const lineToPoints = lineTo(points, cmd);
 
