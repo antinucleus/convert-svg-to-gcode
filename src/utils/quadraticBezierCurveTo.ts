@@ -4,6 +4,7 @@ import {
   previousCurveEndPointStore,
   configStore,
 } from "../stores";
+import { SvgCommand } from "../constants";
 
 const { previousPoint, updatePreviousPoint } = previousPointStore();
 const { updatePreviousCurveEndControlPoint } = previousCurveEndPointStore();
@@ -13,12 +14,13 @@ const {
 
 const calculateQuadraticBezierCurvePoints = (
   points: number[],
-  absolute: boolean
+  cmd: SvgCommand
 ) => {
   let start: number[];
   let end: number[];
   let controlPoints: Array<Array<number>>;
   const allCurvePoints: Array<Array<Array<number>>> = [];
+  const absolute = cmd === SvgCommand.Q;
 
   for (let i = 0; i < points.length; i += 4) {
     start = [previousPoint.x, previousPoint.y];

@@ -6,6 +6,7 @@ import { calculateSmoothCubicBezierCurvePoints } from "./smoothCubicBezierCurveT
 import { calculateQuadraticBezierCurvePoints } from "./quadraticBezierCurveTo";
 import { calculateSmoothQuadraticBezierCurvePoints } from "./smoothQuadraticCurveTo";
 import { previousPointStore } from "../stores";
+import { lineTo } from "./lineTo";
 
 const pathProcess = (paths) => {
   for (const path of paths) {
@@ -36,22 +37,19 @@ const generateGcode = (commandList: any[]) => {
 
       pushGcode(cmd, GcodeCommand.G0, x, y);
       updatePreviousPoint(x, y);
-    } else if (cmd === SvgCommand.L) {
-      x = points[0];
-      y = points[1];
+    } else if (cmd === SvgCommand.L || cmd === SvgCommand.l) {
+      const lineToPoints = lineTo(points, cmd);
+
+      for (const line of lineToPoints) {
+        x = line[0];
+        y = line[1];
+
+        pushGcode(cmd, GcodeCommand.G1, x, y);
+      }
 
       pushGcode(cmd, GcodeCommand.G1, x, y);
-      updatePreviousPoint(x, y);
-    } else if (cmd === SvgCommand.l) {
-      for (let i = 0; i < points.length; i += 2) {
-        x = previousPoint.x + points[i];
-        y = previousPoint.y + points[i + 1];
-
-        pushGcode(cmd, GcodeCommand.G1, x, y, "line to");
-        updatePreviousPoint(x, y);
-      }
-    } else if (cmd === SvgCommand.C) {
-      const allCurvePoints = calculateCubicBezierCurvePoints(points, true);
+    } else if (cmd === SvgCommand.C || cmd === SvgCommand.c) {
+      const allCurvePoints = calculateCubicBezierCurvePoints(points, cmd);
 
       for (const curve of allCurvePoints) {
         for (const cp of curve) {
@@ -61,8 +59,8 @@ const generateGcode = (commandList: any[]) => {
           pushGcode(cmd, GcodeCommand.G1, x, y);
         }
       }
-    } else if (cmd === SvgCommand.c) {
-      const allCurvePoints = calculateCubicBezierCurvePoints(points, false);
+    } else if (cmd === SvgCommand.S || cmd === SvgCommand.s) {
+      const allCurvePoints = calculateSmoothCubicBezierCurvePoints(points, cmd);
 
       for (const curve of allCurvePoints) {
         for (const cp of curve) {
@@ -72,11 +70,8 @@ const generateGcode = (commandList: any[]) => {
           pushGcode(cmd, GcodeCommand.G1, x, y);
         }
       }
-    } else if (cmd === SvgCommand.S) {
-      const allCurvePoints = calculateSmoothCubicBezierCurvePoints(
-        points,
-        true
-      );
+    } else if (cmd === SvgCommand.Q || cmd === SvgCommand.q) {
+      const allCurvePoints = calculateQuadraticBezierCurvePoints(points, cmd);
 
       for (const curve of allCurvePoints) {
         for (const cp of curve) {
@@ -86,46 +81,10 @@ const generateGcode = (commandList: any[]) => {
           pushGcode(cmd, GcodeCommand.G1, x, y);
         }
       }
-    } else if (cmd === SvgCommand.s) {
-      const allCurvePoints = calculateSmoothCubicBezierCurvePoints(
-        points,
-        false
-      );
-
-      for (const curve of allCurvePoints) {
-        for (const cp of curve) {
-          x = cp[0];
-          y = cp[1];
-
-          pushGcode(cmd, GcodeCommand.G1, x, y);
-        }
-      }
-    } else if (cmd === SvgCommand.Q) {
-      const allCurvePoints = calculateQuadraticBezierCurvePoints(points, true);
-
-      for (const curve of allCurvePoints) {
-        for (const cp of curve) {
-          x = cp[0];
-          y = cp[1];
-
-          pushGcode(cmd, GcodeCommand.G1, x, y);
-        }
-      }
-    } else if (cmd === SvgCommand.q) {
-      const allCurvePoints = calculateQuadraticBezierCurvePoints(points, false);
-
-      for (const curve of allCurvePoints) {
-        for (const cp of curve) {
-          x = cp[0];
-          y = cp[1];
-
-          pushGcode(cmd, GcodeCommand.G1, x, y);
-        }
-      }
-    } else if (cmd === SvgCommand.T) {
+    } else if (cmd === SvgCommand.T || cmd === SvgCommand.t) {
       const allCurvePoints = calculateSmoothQuadraticBezierCurvePoints(
         points,
-        true
+        cmd
       );
 
       for (const curve of allCurvePoints) {
@@ -136,20 +95,8 @@ const generateGcode = (commandList: any[]) => {
           pushGcode(cmd, GcodeCommand.G1, x, y);
         }
       }
-    } else if (cmd === SvgCommand.t) {
-      const allCurvePoints = calculateSmoothQuadraticBezierCurvePoints(
-        points,
-        false
-      );
-
-      for (const curve of allCurvePoints) {
-        for (const cp of curve) {
-          x = cp[0];
-          y = cp[1];
-
-          pushGcode(cmd, GcodeCommand.G1, x, y);
-        }
-      }
+    } else {
+      console.error("Command not found:", cmd);
     }
   }
 };

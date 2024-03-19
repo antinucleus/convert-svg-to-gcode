@@ -3,14 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.calculateQuadraticBezierCurvePoints = void 0;
 const bezierCurvePointsGenerator_1 = require("./bezierCurvePointsGenerator");
 const stores_1 = require("../stores");
+const constants_1 = require("../constants");
 const { previousPoint, updatePreviousPoint } = (0, stores_1.previousPointStore)();
 const { updatePreviousCurveEndControlPoint } = (0, stores_1.previousCurveEndPointStore)();
 const { config: { sampleCount }, } = (0, stores_1.configStore)();
-const calculateQuadraticBezierCurvePoints = (points, absolute) => {
+const calculateQuadraticBezierCurvePoints = (points, cmd) => {
     let start;
     let end;
     let controlPoints;
     const allCurvePoints = [];
+    const absolute = cmd === constants_1.SvgCommand.Q;
     for (let i = 0; i < points.length; i += 4) {
         start = [previousPoint.x, previousPoint.y];
         controlPoints = [

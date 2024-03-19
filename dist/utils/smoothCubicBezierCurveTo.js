@@ -9,13 +9,14 @@ const { previousPoint, updatePreviousPoint } = (0, stores_1.previousPointStore)(
 const { previousSvgCommand } = (0, stores_1.previousSvgCommandStore)();
 const { previousCurveEndControlPoint, updatePreviousCurveEndControlPoint } = (0, stores_1.previousCurveEndPointStore)();
 const { config: { sampleCount }, } = (0, stores_1.configStore)();
-const calculateSmoothCubicBezierCurvePoints = (points, absolute) => {
+const calculateSmoothCubicBezierCurvePoints = (points, cmd) => {
     let start;
     let end;
     let startControlPoint;
     let endControlPoint;
     let controlPoints;
     const allCurvePoints = [];
+    const absolute = cmd === constants_1.SvgCommand.S;
     for (let i = 0; i < points.length; i += 4) {
         start = [previousPoint.x, previousPoint.y];
         endControlPoint = [

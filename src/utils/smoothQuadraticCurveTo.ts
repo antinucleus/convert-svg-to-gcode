@@ -18,13 +18,14 @@ const {
 
 const calculateSmoothQuadraticBezierCurvePoints = (
   points: number[],
-  absolute: boolean
+  cmd: SvgCommand
 ) => {
   let start: number[];
   let end: number[];
   let startControlPoint: number[];
   let controlPoints: Array<Array<number>>;
   const allCurvePoints: Array<Array<Array<number>>> = [];
+  const absolute = cmd === SvgCommand.T;
 
   for (let i = 0; i < points.length; i += 2) {
     start = [previousPoint.x, previousPoint.y];

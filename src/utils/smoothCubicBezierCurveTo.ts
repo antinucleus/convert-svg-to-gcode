@@ -18,7 +18,7 @@ const {
 
 const calculateSmoothCubicBezierCurvePoints = (
   points: number[],
-  absolute: boolean
+  cmd: SvgCommand
 ) => {
   let start: number[];
   let end: number[];
@@ -26,6 +26,7 @@ const calculateSmoothCubicBezierCurvePoints = (
   let endControlPoint: number[];
   let controlPoints: Array<Array<number>>;
   const allCurvePoints: Array<Array<Array<number>>> = [];
+  const absolute = cmd === SvgCommand.S;
 
   for (let i = 0; i < points.length; i += 4) {
     start = [previousPoint.x, previousPoint.y];

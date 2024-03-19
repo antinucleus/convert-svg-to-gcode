@@ -4,6 +4,7 @@ import {
   previousCurveEndPointStore,
   configStore,
 } from "../stores";
+import { SvgCommand } from "../constants";
 
 const { previousPoint, updatePreviousPoint } = previousPointStore();
 const { updatePreviousCurveEndControlPoint } = previousCurveEndPointStore();
@@ -11,14 +12,12 @@ const {
   config: { sampleCount },
 } = configStore();
 
-const calculateCubicBezierCurvePoints = (
-  points: number[],
-  absolute: boolean
-) => {
+const calculateCubicBezierCurvePoints = (points: number[], cmd: SvgCommand) => {
   let start: number[];
   let end: number[];
   let controlPoints: Array<Array<number>>;
   const allCurvePoints: Array<Array<Array<number>>> = [];
+  const absolute = cmd === SvgCommand.C;
 
   for (let i = 0; i < points.length; i += 6) {
     start = [previousPoint.x, previousPoint.y];
