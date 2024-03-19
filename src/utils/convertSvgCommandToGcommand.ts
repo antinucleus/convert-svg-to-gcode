@@ -5,24 +5,27 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
   let currentChar = "";
   let gCommand = "";
   let cmd = "";
+  let points: Array<number | string> = [];
 
   for (let i = 0; i < d.length; i++) {
     currentChar = d[i];
 
     if (svgCommandList.includes(currentChar) || i === d.length - 1) {
+      if (i === d.length - 1) {
+        gCommand += currentChar;
+      }
+
       if (gCommand !== "") {
         if (log) {
           console.log({ gCommand });
         }
 
-        gCommand = gCommand.trim();
-
-        const res: Array<number | string> = extractNumbersFromString(gCommand);
-        res.unshift(cmd);
-
-        commandList.push(res);
+        points = extractPoitsFromPath(gCommand.trim());
+        points.unshift(cmd);
+        commandList.push(points);
         gCommand = "";
       }
+
       cmd = currentChar;
     } else {
       if (currentChar === "\n") {
@@ -40,9 +43,9 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
   return commandList;
 };
 
-function extractNumbersFromString(inputString) {
+function extractPoitsFromPath(path: string) {
   const regex = /(?:-?\d+(?:\.\d+)?|-?\.\d+)/g;
-  const matches = inputString.match(regex);
+  const matches = path.match(regex);
 
   return matches.map((match) => parseFloat(match));
 }

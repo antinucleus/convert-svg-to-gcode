@@ -7,6 +7,8 @@ import { calculateQuadraticBezierCurvePoints } from "./quadraticBezierCurveTo";
 import { calculateSmoothQuadraticBezierCurvePoints } from "./smoothQuadraticCurveTo";
 import { lineTo } from "./lineTo";
 import { moveTo } from "./moveTo";
+import { horizontalLineTo } from "./horizontalLineTo";
+import { verticalLineTo } from "./verticalLineTo";
 
 const pathProcess = (paths) => {
   for (const path of paths) {
@@ -30,14 +32,32 @@ const generateGcode = (commandList: any[]) => {
 
       pushGcode(cmd, GcodeCommand.G0, moveToPoints[0], moveToPoints[1]);
     } else if (cmd === SvgCommand.L || cmd === SvgCommand.l) {
-      const lineToPoints = lineTo(points, cmd);
+      const linePoints = lineTo(points, cmd);
 
-      for (const line of lineToPoints) {
+      for (const line of linePoints) {
         x = line[0];
         y = line[1];
 
         pushGcode(cmd, GcodeCommand.G1, x, y);
       }
+    } else if (cmd === SvgCommand.H || cmd === SvgCommand.h) {
+      const horizontalLinePoints = horizontalLineTo(points, cmd);
+
+      pushGcode(
+        cmd,
+        GcodeCommand.G1,
+        horizontalLinePoints[0],
+        horizontalLinePoints[1]
+      );
+    } else if (cmd === SvgCommand.V || cmd === SvgCommand.v) {
+      const horizontalLinePoints = verticalLineTo(points, cmd);
+
+      pushGcode(
+        cmd,
+        GcodeCommand.G1,
+        horizontalLinePoints[0],
+        horizontalLinePoints[1]
+      );
     } else if (cmd === SvgCommand.C || cmd === SvgCommand.c) {
       curvePoints = calculateCubicBezierCurvePoints(points, cmd);
     } else if (cmd === SvgCommand.S || cmd === SvgCommand.s) {
@@ -47,7 +67,7 @@ const generateGcode = (commandList: any[]) => {
     } else if (cmd === SvgCommand.T || cmd === SvgCommand.t) {
       curvePoints = calculateSmoothQuadraticBezierCurvePoints(points, cmd);
     } else {
-      console.error("Command not found:", cmd);
+      throw new Error(`Command not found '${cmd}'`);
     }
 
     for (const curve of curvePoints) {
