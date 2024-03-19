@@ -7,6 +7,10 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
   let cmd = "";
   let points: Array<number | string> = [];
 
+  if (log) {
+    console.log({ d });
+  }
+
   for (let i = 0; i < d.length; i++) {
     currentChar = d[i];
 
@@ -41,7 +45,7 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
 };
 
 function extractPoitsFromPath(path: string) {
-  const regex = /(?:-?\d+(?:\.\d+)?|-?\.\d+)/g;
+  const regex = /-?\d+\.?\d*(?:e-?\d+)?/g;
   const matches = path.match(regex);
 
   return matches.map((match) => parseFloat(match));
