@@ -83,10 +83,10 @@ You can check examples folder. `output.gcode` files in this directory are genera
 - [x] Support conversion of `l` command (Relative Line To)
 - [x] Support conversion of `Z` command (Close Path)
 - [x] Support conversion of `z` command (Close Path)
-- [ ] Support conversion of `H` command (Absolute Horizontal Line To)
-- [ ] Support conversion of `h` command (Relative Horizontal Line To)
-- [ ] Support conversion of `V` command (Absolute Vertical Line To)
-- [ ] Support conversion of `v` command (Relative Vertical Line To)
+- [x] Support conversion of `H` command (Absolute Horizontal Line To)
+- [x] Support conversion of `h` command (Relative Horizontal Line To)
+- [x] Support conversion of `V` command (Absolute Vertical Line To)
+- [x] Support conversion of `v` command (Relative Vertical Line To)
 
 ##### Curve Commands
 
