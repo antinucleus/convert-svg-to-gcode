@@ -11,29 +11,26 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
     currentChar = d[i];
 
     if (svgCommandList.includes(currentChar) || i === d.length - 1) {
-      if (i === d.length - 1) {
+      if (gCommand !== "" && gCommand !== " ") {
         gCommand += currentChar;
-      }
-
-      if (gCommand !== "") {
-        if (log) {
-          console.log({ gCommand });
-        }
-
         points = extractPoitsFromPath(gCommand.trim());
         points.unshift(cmd);
         commandList.push(points);
+
+        if (log) {
+          console.log({ points });
+        }
+
         gCommand = "";
+      }
+      if (currentChar === "z" || currentChar === "Z") {
+        commandList.push([currentChar]);
       }
 
       cmd = currentChar;
     } else {
       if (currentChar === "\n") {
         currentChar = " ";
-      }
-
-      if (currentChar === "Z" || currentChar === "z") {
-        currentChar = "";
       }
 
       gCommand += currentChar;

@@ -25,7 +25,6 @@ getFile(fileDir)
     const svg = parsed.children as ElementNode[];
 
     nestedPath(svg[0].children as ElementNode[], allPaths);
-
     const gCodes = pathProcess(allPaths);
     saveGcodeFile(gCodes);
   })

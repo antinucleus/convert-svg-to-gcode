@@ -1,5 +1,5 @@
-const absoluteCommands = ["M", "L", "H", "V", "C", "S", "Q", "T", "A"];
-const relativeCommands = ["m", "l", "h", "v", "c", "s", "q", "t", "a"];
+const absoluteCommands = ["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"];
+const relativeCommands = ["m", "l", "h", "v", "c", "s", "q", "t", "a", "z"];
 const svgCommandList = absoluteCommands.concat(relativeCommands);
 const defaultSampleCount: number = 30;
 
@@ -23,6 +23,8 @@ enum SvgCommand {
   q = "q", // Relative smooth quadratic bezier curve to
   t = "t", // Relative smooth quadratic bezier curve to
   a = "a", // Relative elliptical arc to
+  Z = "Z", // Close path
+  z = "z", // Close path
 }
 
 enum GcodeCommand {

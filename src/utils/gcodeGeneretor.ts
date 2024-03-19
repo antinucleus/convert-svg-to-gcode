@@ -21,6 +21,7 @@ const pathProcess = (paths) => {
 
 const generateGcode = (commandList: any[]) => {
   let x: number, y: number;
+  const firstPoint = { x: 0, y: 0 };
 
   for (const command of commandList) {
     const cmd = command[0] as SvgCommand;
@@ -29,6 +30,8 @@ const generateGcode = (commandList: any[]) => {
 
     if (cmd === SvgCommand.M || cmd === SvgCommand.m) {
       const moveToPoints = moveTo(points, cmd);
+      firstPoint.x = moveToPoints[0];
+      firstPoint.y = moveToPoints[1];
 
       pushGcode(cmd, GcodeCommand.G0, moveToPoints[0], moveToPoints[1]);
     } else if (cmd === SvgCommand.L || cmd === SvgCommand.l) {
@@ -41,23 +44,11 @@ const generateGcode = (commandList: any[]) => {
         pushGcode(cmd, GcodeCommand.G1, x, y);
       }
     } else if (cmd === SvgCommand.H || cmd === SvgCommand.h) {
-      const horizontalLinePoints = horizontalLineTo(points, cmd);
-
-      pushGcode(
-        cmd,
-        GcodeCommand.G1,
-        horizontalLinePoints[0],
-        horizontalLinePoints[1]
-      );
+      const hLinePoints = horizontalLineTo(points, cmd);
+      pushGcode(cmd, GcodeCommand.G1, hLinePoints[0], hLinePoints[1]);
     } else if (cmd === SvgCommand.V || cmd === SvgCommand.v) {
-      const horizontalLinePoints = verticalLineTo(points, cmd);
-
-      pushGcode(
-        cmd,
-        GcodeCommand.G1,
-        horizontalLinePoints[0],
-        horizontalLinePoints[1]
-      );
+      const vLinePoints = verticalLineTo(points, cmd);
+      pushGcode(cmd, GcodeCommand.G1, vLinePoints[0], vLinePoints[1]);
     } else if (cmd === SvgCommand.C || cmd === SvgCommand.c) {
       curvePoints = calculateCubicBezierCurvePoints(points, cmd);
     } else if (cmd === SvgCommand.S || cmd === SvgCommand.s) {
@@ -66,6 +57,8 @@ const generateGcode = (commandList: any[]) => {
       curvePoints = calculateQuadraticBezierCurvePoints(points, cmd);
     } else if (cmd === SvgCommand.T || cmd === SvgCommand.t) {
       curvePoints = calculateSmoothQuadraticBezierCurvePoints(points, cmd);
+    } else if (cmd === SvgCommand.Z || cmd === SvgCommand.z) {
+      pushGcode(cmd, GcodeCommand.G1, firstPoint.x, firstPoint.y);
     } else {
       throw new Error(`Command not found '${cmd}'`);
     }
