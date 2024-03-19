@@ -37,8 +37,6 @@ const generateGcode = (commandList: any[]) => {
 
         pushGcode(cmd, GcodeCommand.G1, x, y);
       }
-
-      pushGcode(cmd, GcodeCommand.G1, x, y);
     } else if (cmd === SvgCommand.C || cmd === SvgCommand.c) {
       const allCurvePoints = calculateCubicBezierCurvePoints(points, cmd);
 
