@@ -47,7 +47,7 @@ const processFileContents = (fileContents: string) => {
     throw new Error(`"initialCommand" value must be an array.`);
   }
 
-  if (!config.lineNumbering) {
+  if (config.lineNumbering === undefined) {
     config.lineNumbering = defaultLineNumbering;
   } else if (typeof config.lineNumbering !== "boolean") {
     throw new Error(`"lineNumbering" value must be true or false.`);

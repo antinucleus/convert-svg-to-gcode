@@ -27,7 +27,7 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
     if (svgCommandList.includes(currentChar) || i === d.length - 1) {
       if (gCommand !== "" && gCommand !== " ") {
         gCommand += currentChar;
-        points = extractPoitsFromPath(gCommand.trim());
+        points = extractPointsFromPath(gCommand.trim());
 
         scaleSvgSizeToTargetSize(
           points as number[],
@@ -62,9 +62,10 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
   return commandList;
 };
 
-function extractPoitsFromPath(path: string) {
+function extractPointsFromPath(path: string) {
   const regex = /-?\d+\.?\d*(?:e-?\d+)?/g;
   const matches = path.match(regex);
+
   return matches.map((match) => parseFloat(match));
 }
 

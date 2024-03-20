@@ -7,7 +7,7 @@ import {
   saveGcodeFile,
   checkConfigFile,
 } from "./utils";
-import { configStore, filePropertiesStore } from "./stores";
+import { configStore, filePropertiesStore, gCodeStore } from "./stores";
 
 checkConfigFile();
 
@@ -33,7 +33,8 @@ getFile(fileDir)
     });
 
     nestedPath(svg[0].children as ElementNode[], allPaths);
-    const gCodes = pathProcess(allPaths);
+    pathProcess(allPaths);
+    const { gCodes } = gCodeStore();
     saveGcodeFile(gCodes);
   })
   .catch((error) => {
