@@ -1,10 +1,10 @@
 import { Options } from "../types";
 
 const initialValues: Options = {
+  svgFileName: "",
   initialCommand: [],
   lineNumbering: false,
   sampleCount: 30,
-  svgFileName: "",
   unit: "mm",
   width: undefined,
   height: undefined,

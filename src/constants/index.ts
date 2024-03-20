@@ -3,7 +3,9 @@ import { Units } from "../types";
 const absoluteCommands = ["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"];
 const relativeCommands = ["m", "l", "h", "v", "c", "s", "q", "t", "a", "z"];
 const svgCommandList = absoluteCommands.concat(relativeCommands);
-const defaultSampleCount: number = 30;
+const defaultSampleCount = 30;
+const defaultLineNumbering = false;
+const defaultInitialCommand: string[] = [];
 const units = ["mm", "in", "pc", "pt", "px"] as const;
 const defaultUnit: Omit<Units, "pc" | "pt" | "px"> = "mm";
 
@@ -55,9 +57,11 @@ const UnitConversion = { mm: ConvertTomm, in: ConvertToin };
 export {
   svgCommandList,
   defaultSampleCount,
+  defaultLineNumbering,
+  defaultInitialCommand,
+  defaultUnit,
+  UnitConversion,
+  units,
   SvgCommand,
   GcodeCommand,
-  UnitConversion,
-  defaultUnit,
-  units,
 };

@@ -2,7 +2,12 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { Options } from "../types";
-import { defaultSampleCount, defaultUnit } from "../constants";
+import {
+  defaultInitialCommand,
+  defaultLineNumbering,
+  defaultSampleCount,
+  defaultUnit,
+} from "../constants";
 import { configStore } from "../stores";
 
 const filePath = path.join(__dirname, "../../src/config.json");
@@ -37,13 +42,13 @@ const processFileContents = (fileContents: string) => {
   }
 
   if (!config.initialCommand) {
-    config.initialCommand = [];
+    config.initialCommand = defaultInitialCommand;
   } else if (!Array.isArray(config.initialCommand)) {
     throw new Error(`"initialCommand" value must be an array.`);
   }
 
   if (!config.lineNumbering) {
-    config.lineNumbering = false;
+    config.lineNumbering = defaultLineNumbering;
   } else if (typeof config.lineNumbering !== "boolean") {
     throw new Error(`"lineNumbering" value must be true or false.`);
   }

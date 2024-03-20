@@ -25,10 +25,23 @@ You can see the to-do list and how to use this repo below.
 
 5. There is `config.json` file at /src directory of the project. You can change the values for your needs. Config file fields listed below:
 
-   - `svgFileName`: A file name which will be converted to gcode. File must be in public directory as described above. If it is not there, program will not work.
-   - `initialCommand`: You can change initial command if it is neccessary or you can additional command to array.
-   - `lineNumbering`: If it is true, line numbers will be added for each gcode command.
-   - `sampleCount`: This value determines how curves will be smooth. Higher values provide smoothier curves but gcode generation takes longer time. If negative value is supplied, default value `30` will be taken.
+| Field            | Default Value | Type     | Options    | Required                  |
+| ---------------- | ------------- | -------- | ---------- | ------------------------- |
+| `svgFileName`    | ""            | string   | -          | ✔                         |
+| `initialCommand` | [ ]           | string[] | -          | ✘                         |
+| `lineNumbering`  | false         | boolean  | true,false | ✘                         |
+| `sampleCount`    | 30            | number   | -          | ✘                         |
+| `unit`           | "mm"          | string   | mm,in      | ✘                         |
+| `width`          | undefined     | number   | -          | if height is not provided |
+| `height`         | undefined     | number   | -          | if width is not provided  |
+
+- `svgFileName`: A file name which will be converted to gcode. File must be in public directory as described above. If it is not there, program will not work.
+- `initialCommand`: Default value is empty array `[ ]`. You can change initial command if it is neccessary or you can add extra command to array.
+- `lineNumbering`: Default value is `false`. If it is true, line numbers will be added for each gcode command.
+- `sampleCount`: Default value is `30`. This value determines how curves will be smooth. Higher values provide smoothier curves but gcode generation takes longer time. If negative value is supplied, default value `30` will be taken.
+- `unit`: Default value is `mm`. This field will be used for digital size to pyhsical size conversion.
+- `width`: Target width size. If `height` is not provided, `width` is required. Both width and height values can be provided.
+- `height`: Target height size. If `width` is not provided, `height` is required. Both width and height values can be provided.
 
 6. Install node_modules `npm install`
 
@@ -42,9 +55,7 @@ You can see the to-do list and how to use this repo below.
 
 ### Currently, this repository converts movement, line, horizontal line, vertical line, cubic bezier curve, smooth cubic bezier curve, quadratic bezier curve, and smooth quadratic bezier curve commands, both absolute and relative, to gcode.You can check to-do list. If your svg file includes different path or shape command it will not work.
 
-### Unit conversion will be supported later.
-
-### There is no conversion of digital units to pyhsical units yet. Therefore, drawing will be huge.
+### If you need to add initial command, don't forget to change initial command. I set value of the `unit` field is `mm` in config file. So i added initial command like that `["G90 G21 (positioning = absolute, unit = mm)"]`. If you set unit to `in` change initial command for appropriate command. (Example: If unit is `in`, initial command can be `["G90 G20 (positioning = absolute, unit = in)"]`)
 
 ## Examples
 
@@ -72,7 +83,7 @@ You can check examples folder. `output.gcode` files in this directory are genera
 
 ## To-Do List
 
-- [ ] Convert digital units (px,pt...) to pyhsical units(mm,inch...)
+- [x] Convert digital units (px,pt...) to pyhsical units(mm,inch...)
 - [ ] Add feed rate control
 
 > #### Paths
