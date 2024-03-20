@@ -25,7 +25,7 @@ const generateGcode = (commandList: any[]) => {
 
   for (const command of commandList) {
     const cmd = command[0] as SvgCommand;
-    const points = command.splice(1);
+    const points = command.splice(1) as number[];
     let curvePoints: Array<Array<Array<number>>> = [];
 
     if (cmd === SvgCommand.M || cmd === SvgCommand.m) {

@@ -7,7 +7,7 @@ import {
   saveGcodeFile,
   checkConfigFile,
 } from "./utils";
-import { configStore } from "./stores";
+import { configStore, filePropertiesStore } from "./stores";
 
 checkConfigFile();
 
@@ -21,8 +21,16 @@ const allPaths: Array<string | number> = [];
 
 getFile(fileDir)
   .then((data) => {
+    const { updateFileProperties } = filePropertiesStore();
+
     const parsed = parse(data);
     const svg = parsed.children as ElementNode[];
+    const properties = svg[0].properties;
+
+    updateFileProperties({
+      width: properties.width,
+      height: properties.height,
+    });
 
     nestedPath(svg[0].children as ElementNode[], allPaths);
     const gCodes = pathProcess(allPaths);

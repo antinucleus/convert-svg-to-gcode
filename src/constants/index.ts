@@ -1,7 +1,11 @@
+import { Units } from "../types";
+
 const absoluteCommands = ["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"];
 const relativeCommands = ["m", "l", "h", "v", "c", "s", "q", "t", "a", "z"];
 const svgCommandList = absoluteCommands.concat(relativeCommands);
 const defaultSampleCount: number = 30;
+const units = ["mm", "in", "pc", "pt", "px"] as const;
+const defaultUnit: Omit<Units, "pc" | "pt" | "px"> = "mm";
 
 enum SvgCommand {
   __ = "", // Empty
@@ -36,4 +40,24 @@ enum GcodeCommand {
   G21 = "G21", // Set unit to mm
 }
 
-export { svgCommandList, defaultSampleCount, SvgCommand, GcodeCommand };
+const ConvertTomm = {
+  pt: 0.3527777778, // 1pt = 0.3527777778 mm
+  pc: 3.08567758128e19, // 1pc = 3.08567758128e+19mm
+};
+
+const ConvertToin = {
+  pt: 0.0138888889, // 1pt = 0.0138888889 in
+  pc: 1.2148336934173e18, // 1.2148336934173e+18 in
+};
+
+const UnitConversion = { mm: ConvertTomm, in: ConvertToin };
+
+export {
+  svgCommandList,
+  defaultSampleCount,
+  SvgCommand,
+  GcodeCommand,
+  UnitConversion,
+  defaultUnit,
+  units,
+};

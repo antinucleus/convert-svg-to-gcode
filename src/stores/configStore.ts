@@ -5,6 +5,9 @@ const initialValues: Options = {
   lineNumbering: false,
   sampleCount: 30,
   svgFileName: "",
+  unit: "mm",
+  width: undefined,
+  height: undefined,
 };
 
 let config: Options = initialValues;

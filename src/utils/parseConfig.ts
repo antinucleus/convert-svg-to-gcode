@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { Options } from "../types";
-import { defaultSampleCount } from "../constants";
+import { defaultSampleCount, defaultUnit } from "../constants";
 import { configStore } from "../stores";
 
 const filePath = path.join(__dirname, "../../src/config.json");
@@ -18,10 +18,28 @@ const processFileContents = (fileContents: string) => {
     throw new Error(`"svgFileName" value must be string.`);
   }
 
+  if (!config.unit) {
+    config.unit = defaultUnit;
+  } else if (typeof config.unit !== "string") {
+    throw new Error(`"unit" field must be string.`);
+  } else if (config.unit !== "in" && config.unit !== "mm") {
+    throw new Error(`"unit" field must be "mm" or "in".`);
+  }
+
+  if (!config.width && !config.height) {
+    throw new Error(
+      `At least one of the "width" or "height" field must be provided.`
+    );
+  } else if (config.width && typeof config.width !== "number") {
+    throw new Error(`"width" field must be number.`);
+  } else if (config.height && typeof config.height !== "number") {
+    throw new Error(`"height" field must be number.`);
+  }
+
   if (!config.initialCommand) {
     config.initialCommand = [];
   } else if (!Array.isArray(config.initialCommand)) {
-    throw new Error(`"initialCommand" value must be array.`);
+    throw new Error(`"initialCommand" value must be an array.`);
   }
 
   if (!config.lineNumbering) {
