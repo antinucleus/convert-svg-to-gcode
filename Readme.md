@@ -39,7 +39,7 @@ You can see the to-do list and how to use this repo below.
 - `initialCommand`: Default value is empty array `[ ]`. You can change initial command if it is neccessary or you can add extra command to array.
 - `lineNumbering`: Default value is `false`. If it is true, line numbers will be added for each gcode command.
 - `sampleCount`: Default value is `30`. This value determines how curves will be smooth. Higher values provide smoothier curves but gcode generation takes longer time. If negative value is supplied, default value `30` will be taken.
-- `unit`: Default value is `mm`. This field will be used for digital size to pyhsical size conversion.
+- `unit`: Default value is `mm`. This field will be used for digital size to physical size conversion.
 - `width`: Target width size. If `height` is not provided, `width` is required. Both width and height values can be provided.
 - `height`: Target height size. If `width` is not provided, `height` is required. Both width and height values can be provided.
 
@@ -83,7 +83,7 @@ You can check examples folder. `output.gcode` files in this directory are genera
 
 ## To-Do List
 
-- [x] Convert digital units (px,pt...) to pyhsical units(mm,inch...)
+- [x] Convert digital units (px,pt...) to physical units(mm,inch...)
 - [ ] Add feed rate control
 
 > #### Paths
