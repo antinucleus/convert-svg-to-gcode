@@ -15,6 +15,10 @@ const calcualteConversion = (
     }
   }
 
+  /* To-do
+  get svgScale value from svg file, check if it will be multiplied with currentSize before aspect ratio calculation
+  */
+
   const conversion: number = UnitConversion[config.unit as string][svgFileUnit];
 
   fileW = Number(fileW.toString().split(svgFileUnit)[0]) * conversion;
@@ -23,7 +27,7 @@ const calcualteConversion = (
   const targetSize = { w: config.width, h: config.height };
   const currentSize = { w: fileW, h: fileH };
   const aspectRatio = currentSize.w / currentSize.h;
-  const svgScaleValue = { x: 0.1, y: 0.1 };
+  const svgScaleValue = { x: 1, y: 1 };
   const multiplier = { mw: 1, mh: 1 };
 
   if (!targetSize.w) {

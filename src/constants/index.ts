@@ -6,6 +6,7 @@ const svgCommandList = absoluteCommands.concat(relativeCommands);
 const defaultSampleCount = 30;
 const defaultLineNumbering = false;
 const defaultInitialCommand: string[] = [];
+const defultDPI = 96;
 const units = ["mm", "in", "pc", "pt", "px"] as const;
 const defaultUnit: Omit<Units, "pc" | "pt" | "px"> = "mm";
 
@@ -43,11 +44,13 @@ enum GcodeCommand {
 }
 
 const ConvertTomm = {
+  px: 25.4 / defultDPI, //1px = 0.3527777778 mm at 72 DPI
   pt: 0.3527777778, // 1pt = 0.3527777778 mm
   pc: 3.08567758128e19, // 1pc = 3.08567758128e+19mm
 };
 
 const ConvertToin = {
+  px: 1 / defultDPI, // 1px = 0.0138888889 in at 72 DPI
   pt: 0.0138888889, // 1pt = 0.0138888889 in
   pc: 1.2148336934173e18, // 1.2148336934173e+18 in
 };

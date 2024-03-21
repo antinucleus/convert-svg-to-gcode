@@ -31,6 +31,7 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
 
         scaleSvgSizeToTargetSize(
           points as number[],
+          cmd,
           values.conversion,
           values.multiplier,
           values.svgScaleValue
