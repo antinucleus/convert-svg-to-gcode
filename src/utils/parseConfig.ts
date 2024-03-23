@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { Options } from "../types";
 import {
+  defaultFill,
   defaultInitialCommand,
   defaultLineNumbering,
   defaultSampleCount,
@@ -39,6 +40,12 @@ const processFileContents = (fileContents: string) => {
     throw new Error(`"width" field must be number.`);
   } else if (config.height && typeof config.height !== "number") {
     throw new Error(`"height" field must be number.`);
+  }
+
+  if (!config.fill) {
+    config.fill = defaultFill;
+  } else if (typeof config.fill !== "boolean") {
+    throw new Error(`"fill" field must be boolean.`);
   }
 
   if (!config.initialCommand) {

@@ -6,6 +6,7 @@ const svgCommandList = absoluteCommands.concat(relativeCommands);
 const defaultSampleCount = 30;
 const defaultLineNumbering = false;
 const defaultInitialCommand: string[] = [];
+const defaultFill = false;
 const defultDPI = 96;
 const units = ["mm", "in", "pc", "pt", "px"] as const;
 const defaultUnit: Omit<Units, "pc" | "pt" | "px"> = "mm";
@@ -62,6 +63,7 @@ export {
   defaultSampleCount,
   defaultLineNumbering,
   defaultInitialCommand,
+  defaultFill,
   defaultUnit,
   UnitConversion,
   units,

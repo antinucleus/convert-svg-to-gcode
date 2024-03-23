@@ -34,14 +34,43 @@ You can see the to-do list and how to use this repo below.
 | `unit`           | "mm"          | string   | mm,in      | ✘                         |
 | `width`          | undefined     | number   | -          | if height is not provided |
 | `height`         | undefined     | number   | -          | if width is not provided  |
+| `fill`           | false         | boolean  | true,false | ✘                         |
 
 - `svgFileName`: A file name which will be converted to gcode. File must be in public directory as described above. If it is not there, program will not work.
 - `initialCommand`: Default value is empty array `[ ]`. You can change initial command if it is neccessary or you can add extra command to array.
 - `lineNumbering`: Default value is `false`. If it is true, line numbers will be added for each gcode command.
 - `sampleCount`: Default value is `30`. This value determines how curves will be smooth. Higher values provide smoothier curves but gcode generation takes longer time. If negative value is supplied, default value `30` will be taken.
 - `unit`: Default value is `mm`. This field will be used for digital size to physical size conversion.
-- `width`: Target width size. If `height` is not provided, `width` is required. Both width and height values can be provided.
-- `height`: Target height size. If `width` is not provided, `height` is required. Both width and height values can be provided.
+- `width`: Target width size. If `height` is not provided, `width` is required. `height` value will be calculated using aspect ratio of svg image. Both width and height values can be provided.
+- `height`: Target height size. If `width` is not provided, `height` is required. `width` value will be calculated using aspect ratio of svg image. Both width and height values can be provided.
+- `fill`: Default value is `false`. If it is true, image will fill the given width and height, aspect ratio will be destroyed. The image will be stretched or squished.
+
+Check information about `width`, `height` and `fill` below.
+
+| Condition                              | `fill` | Aspect Ratio Maintenance |
+| -------------------------------------- | ------ | ------------------------ |
+| Both `width` and `height` are supplied | false  | ✔                        |
+| Only `width` is supplied               | false  | ✔                        |
+| Only `height` is supplied              | false  | ✔                        |
+| Both `width` and `height` are supplied | true   | ✘                        |
+| Only `width` is supplied               | true   | ✘                        |
+| Only `height` is supplied              | true   | ✘                        |
+
+If the `fill` field is false and if the svg image width and height are smaller than given `width` and `height`, svg image will be converted to gcode preserving its aspect ratio and its original measurements.
+
+If the `fill` field is false and if width or height of the svg image is bigger than given `width` or `height`, svg image will be converted to gcode preserving its aspect ratio but its original measurements will be scaled with respect to given `width` and `height`.
+
+You can check examples below:
+
+| Svg Image Size         | `fill` | AspectR | `width` and `height` value in config file | Image Size as Gcode        |
+| ---------------------- | ------ | ------- | ----------------------------------------- | -------------------------- |
+| width: 100 height: 200 | false  | 1/2     | `width`: 250 `height`: undefined          | `width`: 100 `height`: 200 |
+| width: 100 height: 200 | false  | 1/2     | `width`: undefined `height`: 250          | `width`: 100 `height`: 200 |
+| width: 100 height: 200 | false  | 1/2     | `width`: 250 `height`: 250                | `width`: 100 `height`: 200 |
+| width: 100 height: 200 | false  | 1/2     | `width`: 50 `height`: 250                 | `width`: 50 `height`: 100  |
+| width: 100 height: 200 | false  | 1/2     | `width`: 250 `height`: 50                 | `width`: 25 `height`: 50   |
+| width: 100 height: 200 | false  | 1/2     | `width`: 80 `height`: 120                 | `width`: 60 `height`: 120  |
+| width: 100 height: 200 | false  | 1/2     | `width`: 80 `height`: 170                 | `width`: 80 `height`: 160  |
 
 6. Install node_modules `npm install`
 

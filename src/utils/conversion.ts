@@ -4,8 +4,7 @@ import { Options, Units } from "../types";
 const calcualteConversion = (
   config: Options,
   fileW: string | number,
-  fileH: string | number,
-  fill = false
+  fileH: string | number
 ) => {
   let svgFileUnit: Units = "px"; // if unit is not provided, default svg unit is px
 
@@ -41,7 +40,7 @@ const calcualteConversion = (
   const w2 = targetSize.h * aspectRatio;
   const h2 = targetSize.w / aspectRatio;
 
-  if (fill) {
+  if (config.fill) {
     multiplier.mw = targetSize.w / currentSize.w;
     multiplier.mh = targetSize.h / currentSize.h;
   } else {
