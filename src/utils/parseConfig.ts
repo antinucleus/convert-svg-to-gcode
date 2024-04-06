@@ -11,7 +11,7 @@ import {
 } from "../constants";
 import { configStore } from "../stores";
 
-const filePath = path.join(__dirname, "../../src/config.json");
+const filePath = path.join(__dirname, "../../gcode.config.json");
 
 let config: Options;
 const processFileContents = (fileContents: string) => {
