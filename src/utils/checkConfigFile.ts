@@ -1,6 +1,3 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
-
 import { Options } from "../types";
 import {
   defaultFill,
@@ -9,12 +6,10 @@ import {
   defaultSampleCount,
   defaultUnit,
 } from "../constants";
-import { setConfig } from "../stores";
-
-const filePath = path.join(__dirname, "../../gcode.config.json");
 
 let config: Options;
-const processFileContents = (fileContents: string) => {
+
+const checkConfigFile = (fileContents: string) => {
   config = JSON.parse(fileContents) as Options;
 
   if (!config.svgFileName) {
@@ -69,19 +64,7 @@ const processFileContents = (fileContents: string) => {
     );
   }
 
-  console.log("\nConfig: ", config);
-  setConfig(config);
-};
-
-const checkConfigFile = () => {
-  try {
-    console.info("Reading config file");
-
-    const data = readFileSync(filePath, "utf8");
-    processFileContents(data);
-  } catch (error) {
-    throw new Error(error);
-  }
+  return config;
 };
 
 export { checkConfigFile };

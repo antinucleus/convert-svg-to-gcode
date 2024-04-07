@@ -1,3 +1,4 @@
+import path from "node:path";
 import { ElementNode, parse } from "svg-parser";
 
 import {
@@ -5,19 +6,21 @@ import {
   nestedPath,
   pathProcess,
   saveGcodeFile,
+  readConfigFile,
   checkConfigFile,
 } from "./utils";
-import { getConfig, setFileProperties, getGcodes } from "./stores";
+import { setFileProperties, getGcodes, setConfig } from "./stores";
 
-checkConfigFile();
+const filePath = path.join(__dirname, "../gcode.config.json");
+const data = readConfigFile(filePath);
+const config = checkConfigFile(data);
 
-const { svgFileName } = getConfig();
-
-const fileDir = `./src/public/${svgFileName}`;
+const svgFilePath = `./src/public/${config.svgFileName}`;
+setConfig(config);
 
 const allPaths: Array<string | number> = [];
 
-getFile(fileDir)
+getFile(svgFilePath)
   .then((data) => {
     const parsed = parse(data);
     const svg = parsed.children as ElementNode[];
