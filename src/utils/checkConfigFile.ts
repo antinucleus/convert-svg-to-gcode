@@ -12,13 +12,13 @@ let config: Options;
 const checkConfigFile = (fileContents: string) => {
   config = JSON.parse(fileContents) as Options;
 
-  if (!config.svgFileName) {
+  if (config.svgFileName === undefined) {
     throw new Error(`"svgFileName" field must be provided.`);
   } else if (typeof config.svgFileName !== "string") {
     throw new Error(`"svgFileName" value must be string.`);
   }
 
-  if (!config.unit) {
+  if (config.unit === undefined) {
     config.unit = defaultUnit;
   } else if (typeof config.unit !== "string") {
     throw new Error(`"unit" field must be string.`);

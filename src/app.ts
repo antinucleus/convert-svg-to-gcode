@@ -11,7 +11,7 @@ import {
 } from "./utils";
 import { setFileProperties, getGcodes, setConfig } from "./stores";
 
-const filePath = path.join(__dirname, "../gcode.config.json");
+const filePath = path.join(__dirname, "../../gcode.config.json");
 const data = readConfigFile(filePath);
 const config = checkConfigFile(data);
 
