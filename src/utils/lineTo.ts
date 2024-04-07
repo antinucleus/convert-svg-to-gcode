@@ -1,7 +1,7 @@
 import { SvgCommand } from "../constants";
-import { previousPointStore } from "../stores";
+import { getPreviousPoint, setPreviousPoint } from "../stores";
 
-const { previousPoint, updatePreviousPoint } = previousPointStore();
+const previousPoint = getPreviousPoint();
 
 const lineTo = (points: number[], cmd: SvgCommand) => {
   let lineToPoints: number[] = [];
@@ -15,7 +15,7 @@ const lineTo = (points: number[], cmd: SvgCommand) => {
     ];
 
     result.push(lineToPoints);
-    updatePreviousPoint(lineToPoints[0], lineToPoints[1]);
+    setPreviousPoint(lineToPoints[0], lineToPoints[1]);
   }
 
   return result;

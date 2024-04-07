@@ -1,16 +1,14 @@
 import { getBezierPoints } from "./bezierCurvePointsGenerator";
 import {
-  previousPointStore,
-  previousCurveEndPointStore,
-  configStore,
+  getPreviousPoint,
+  setPreviousPoint,
+  setPreviousCurveEndControlPoint,
+  getConfig,
 } from "../stores";
 import { SvgCommand } from "../constants";
 
-const { previousPoint, updatePreviousPoint } = previousPointStore();
-const { updatePreviousCurveEndControlPoint } = previousCurveEndPointStore();
-const {
-  config: { sampleCount },
-} = configStore();
+const previousPoint = getPreviousPoint();
+const { sampleCount } = getConfig();
 
 const calculateQuadraticBezierCurvePoints = (
   points: number[],
@@ -49,8 +47,8 @@ const calculateQuadraticBezierCurvePoints = (
     });
 
     allCurvePoints.push(curvePoints);
-    updatePreviousPoint(end[0], end[1]);
-    updatePreviousCurveEndControlPoint({
+    setPreviousPoint(end[0], end[1]);
+    setPreviousCurveEndControlPoint({
       x: controlPoints[1][0],
       y: controlPoints[1][1],
     });

@@ -1,5 +1,5 @@
 import { SvgCommand, GcodeCommand } from "../constants";
-import { configStore, gCodeStore } from "../stores";
+import { getConfig, getGcodes, setGcodes } from "../stores";
 import { pushGcode } from "./gcodeOperations";
 import { convertSvgCommandstoGcommands } from "./convertSvgCommandToGcommand";
 import { calculateCubicBezierCurvePoints } from "./cubicBezierCurveTo";
@@ -12,16 +12,14 @@ import { horizontalLineTo } from "./horizontalLineTo";
 import { verticalLineTo } from "./verticalLineTo";
 
 const pathProcess = (paths) => {
-  const {
-    config: { initialCommand, lineNumbering },
-  } = configStore();
+  const { initialCommand, lineNumbering } = getConfig();
 
-  const { gCodes, updateGcodes } = gCodeStore();
+  const gCodes = getGcodes();
 
   if (initialCommand.length > 0) {
     for (const ic of initialCommand) {
       const cmd = `${lineNumbering ? `N${gCodes.length + 1}` : ""} ${ic}`;
-      updateGcodes(cmd);
+      setGcodes(cmd);
     }
   }
 

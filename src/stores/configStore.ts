@@ -20,12 +20,12 @@ const initialValues: Options = {
 
 let config: Options = initialValues;
 
-function configStore() {
-  function updateConfig(value: Options) {
-    config = value;
-  }
-
-  return { config, updateConfig };
+function getConfig() {
+  return config;
 }
 
-export { configStore };
+function setConfig(value: Options) {
+  config = value;
+}
+
+export { getConfig, setConfig };

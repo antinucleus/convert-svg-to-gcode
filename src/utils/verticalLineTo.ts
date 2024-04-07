@@ -1,7 +1,7 @@
 import { SvgCommand } from "../constants";
-import { previousPointStore } from "../stores";
+import { getPreviousPoint, setPreviousPoint } from "../stores";
 
-const { previousPoint, updatePreviousPoint } = previousPointStore();
+const previousPoint = getPreviousPoint();
 
 const verticalLineTo = (points: number[], cmd: SvgCommand) => {
   let lineToPoints: number[] = [];
@@ -12,7 +12,7 @@ const verticalLineTo = (points: number[], cmd: SvgCommand) => {
     absolute ? points[0] : previousPoint.y + points[0],
   ];
 
-  updatePreviousPoint(lineToPoints[0], lineToPoints[1]);
+  setPreviousPoint(lineToPoints[0], lineToPoints[1]);
 
   return lineToPoints;
 };

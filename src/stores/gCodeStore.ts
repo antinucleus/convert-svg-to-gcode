@@ -1,14 +1,11 @@
 const gCodes: string[] = [];
 
-function gCodeStore() {
-  function updateGcodes(gCode: string) {
-    gCodes.push(gCode);
-  }
-
-  return {
-    gCodes,
-    updateGcodes,
-  };
+function getGcodes() {
+  return gCodes;
 }
 
-export { gCodeStore };
+function setGcodes(gCode: string) {
+  gCodes.push(gCode);
+}
+
+export { getGcodes, setGcodes };

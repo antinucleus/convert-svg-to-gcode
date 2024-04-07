@@ -2,19 +2,18 @@ import { getBezierPoints } from "./bezierCurvePointsGenerator";
 import { SvgCommand } from "../constants";
 import { reflectPoint } from "./curveHelpers";
 import {
-  previousCurveEndPointStore,
-  previousSvgCommandStore,
-  previousPointStore,
-  configStore,
+  getPreviousPoint,
+  setPreviousPoint,
+  getPreviousCurveEndControlPoint,
+  setPreviousCurveEndControlPoint,
+  getPreviousSvgCommand,
+  getConfig,
 } from "../stores";
 
-const { previousPoint, updatePreviousPoint } = previousPointStore();
-const { previousSvgCommand } = previousSvgCommandStore();
-const { previousCurveEndControlPoint, updatePreviousCurveEndControlPoint } =
-  previousCurveEndPointStore();
-const {
-  config: { sampleCount },
-} = configStore();
+const previousPoint = getPreviousPoint();
+const previousCurveEndControlPoint = getPreviousCurveEndControlPoint();
+const previousSvgCommand = getPreviousSvgCommand();
+const { sampleCount } = getConfig();
 
 const calculateSmoothCubicBezierCurvePoints = (
   points: number[],
@@ -64,8 +63,8 @@ const calculateSmoothCubicBezierCurvePoints = (
     });
 
     allCurvePoints.push(curvePoints);
-    updatePreviousPoint(end[0], end[1]);
-    updatePreviousCurveEndControlPoint({
+    setPreviousPoint(end[0], end[1]);
+    setPreviousCurveEndControlPoint({
       x: endControlPoint[0],
       y: endControlPoint[1],
     });

@@ -1,8 +1,7 @@
 import { SvgCommand } from "../constants";
-import { previousSvgCommandStore, gCodeStore } from "../stores";
+import { setPreviousSvgCommand, getGcodes, setGcodes } from "../stores";
 
-const { updatePreviousSvgCommand } = previousSvgCommandStore();
-const { gCodes } = gCodeStore();
+const gCodes = getGcodes();
 
 const pushGcode = (
   svgcmd: SvgCommand,
@@ -27,8 +26,8 @@ const pushGcode = (
     lineNumbering ? `N${gCodes.length + 1}` : ""
   } ${gcodecmd} X${x} Y${y} Z0 ${comment ? `(${comment})` : ""}`;
 
-  gCodes.push(gcode);
-  updatePreviousSvgCommand(svgcmd);
+  setGcodes(gcode);
+  setPreviousSvgCommand(svgcmd);
 };
 
 export { pushGcode };

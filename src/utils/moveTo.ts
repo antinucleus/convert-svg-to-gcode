@@ -1,7 +1,7 @@
 import { SvgCommand } from "../constants";
-import { previousPointStore } from "../stores";
+import { getPreviousPoint, setPreviousPoint } from "../stores";
 
-const { previousPoint, updatePreviousPoint } = previousPointStore();
+const previousPoint = getPreviousPoint();
 
 const moveTo = (points: number[], cmd: SvgCommand) => {
   let moveTo: number[] = [];
@@ -12,7 +12,7 @@ const moveTo = (points: number[], cmd: SvgCommand) => {
     absolute ? points[1] : previousPoint.y + points[1],
   ];
 
-  updatePreviousPoint(moveTo[0], moveTo[1]);
+  setPreviousPoint(moveTo[0], moveTo[1]);
 
   return moveTo;
 };

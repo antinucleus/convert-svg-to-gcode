@@ -1,11 +1,11 @@
 import { svgCommandList } from "../constants";
-import { configStore, filePropertiesStore } from "../stores";
+import { getConfig, getFileProperties } from "../stores";
 import { calcualteConversion } from "./conversion";
 import { scaleSvgSizeToTargetSize } from "./scaleSvgSizeToTargetSize";
 
 const convertSvgCommandstoGcommands = (d: string[], log = false) => {
-  const { config } = configStore();
-  const { properties } = filePropertiesStore();
+  const config = getConfig();
+  const properties = getFileProperties();
   const commandList = [];
   let currentChar = "";
   let gCommand = "";

@@ -2,12 +2,12 @@ type Properties = { width: string | number; height: string | number };
 
 let properties: Properties = { width: "", height: "" };
 
-function filePropertiesStore() {
-  function updateFileProperties(value: Properties) {
-    properties = value;
-  }
-
-  return { properties, updateFileProperties };
+function getFileProperties() {
+  return properties;
 }
 
-export { filePropertiesStore };
+function setFileProperties(value: Properties) {
+  properties = value;
+}
+
+export { getFileProperties, setFileProperties };

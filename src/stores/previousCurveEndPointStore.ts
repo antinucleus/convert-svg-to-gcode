@@ -2,13 +2,13 @@ import { Point } from "../types";
 
 const previousCurveEndControlPoint: Point = { x: 0, y: 0 };
 
-function previousCurveEndPointStore() {
-  function updatePreviousCurveEndControlPoint(value: Point) {
-    previousCurveEndControlPoint.x = value.x;
-    previousCurveEndControlPoint.y = value.y;
-  }
-
-  return { previousCurveEndControlPoint, updatePreviousCurveEndControlPoint };
+function getPreviousCurveEndControlPoint() {
+  return previousCurveEndControlPoint;
 }
 
-export { previousCurveEndPointStore };
+function setPreviousCurveEndControlPoint(value: Point) {
+  previousCurveEndControlPoint.x = value.x;
+  previousCurveEndControlPoint.y = value.y;
+}
+
+export { getPreviousCurveEndControlPoint, setPreviousCurveEndControlPoint };

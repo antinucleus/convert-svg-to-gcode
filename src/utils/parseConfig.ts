@@ -9,13 +9,12 @@ import {
   defaultSampleCount,
   defaultUnit,
 } from "../constants";
-import { configStore } from "../stores";
+import { setConfig } from "../stores";
 
 const filePath = path.join(__dirname, "../../gcode.config.json");
 
 let config: Options;
 const processFileContents = (fileContents: string) => {
-  const { updateConfig } = configStore();
   config = JSON.parse(fileContents) as Options;
 
   if (!config.svgFileName) {
@@ -71,7 +70,7 @@ const processFileContents = (fileContents: string) => {
   }
 
   console.log("\nConfig: ", config);
-  updateConfig(config);
+  setConfig(config);
 };
 
 const checkConfigFile = () => {
