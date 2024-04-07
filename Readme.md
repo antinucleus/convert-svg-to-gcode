@@ -23,7 +23,7 @@ You can see the to-do list and how to use this repo below.
 
 4. Copy the SVG file you want to convert to `convert-svg-to-gcode/src/public` directory. If the file is not there, program will not work.
 
-5. There is `config.json` file at /src directory of the project. You can change the values for your needs. Config file fields listed below:
+5. There is `gcode.config.json` file at **root** directory of the project. You can change the values for your needs. Config file fields listed below:
 
 | Field            | Default Value | Type     | Options    | Required                  |
 | ---------------- | ------------- | -------- | ---------- | ------------------------- |
