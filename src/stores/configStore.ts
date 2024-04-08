@@ -1,11 +1,12 @@
-import {
+import { configFileDefaultValues, defaultUnit } from "../constants";
+import { Options } from "../types";
+
+const {
   defaultFill,
   defaultInitialCommand,
   defaultLineNumbering,
   defaultSampleCount,
-  defaultUnit,
-} from "../constants";
-import { Options } from "../types";
+} = configFileDefaultValues;
 
 const initialValues: Options = {
   svgFileName: "",

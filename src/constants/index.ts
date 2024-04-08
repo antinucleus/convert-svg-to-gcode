@@ -3,13 +3,48 @@ import { Units } from "../types";
 const absoluteCommands = ["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"];
 const relativeCommands = ["m", "l", "h", "v", "c", "s", "q", "t", "a", "z"];
 const svgCommandList = absoluteCommands.concat(relativeCommands);
-const defaultSampleCount = 30;
-const defaultLineNumbering = false;
-const defaultInitialCommand: string[] = [];
-const defaultFill = false;
-const defultDPI = 96;
+const configFileDefaultValues = {
+  defaultSampleCount: 30,
+  defaultLineNumbering: false,
+  defaultInitialCommand: [],
+  defaultFill: false,
+};
+const defultDPI = 72;
 const units = ["mm", "in", "pc", "pt", "px"] as const;
 const defaultUnit: Omit<Units, "pc" | "pt" | "px"> = "mm";
+const configFileErrorMessages = {
+  svgFileName: {
+    missingFieldError: `"svgFileName" field must be provided.`,
+    typeError: `"svgFileName" value must be string.`,
+  },
+  unit: {
+    typeError: `"svgFileName" value must be string.`,
+    unmatchedValue: `"unit" field must be "mm" or "in".`,
+  },
+  width: {
+    missingFieldError: `At least one of the "width" or "height" field must be provided.`,
+    typeError: `"width" field must be number.`,
+  },
+  height: {
+    missingFieldError: `At least one of the "width" or "height" field must be provided.`,
+    typeError: `"height" field must be number.`,
+  },
+  fill: {
+    typeError: `"fill" field must be boolean.`,
+  },
+  initialCommand: {
+    typeError: `"initialCommand" field must be array.`,
+  },
+  lineNumbering: {
+    typeError: `"lineNumbering" field must be boolean.`,
+  },
+  sampleCount: {
+    typeError: `"sampleCount" value must be number.`,
+    smallerThanZero: `"sampleCount" value must be positive number. If it is 0, default value ${configFileDefaultValues.defaultSampleCount} will be used.`,
+  },
+};
+
+const errorMessages = { configFileErrorMessages };
 
 enum SvgCommand {
   __ = "", // Empty
@@ -59,12 +94,10 @@ const ConvertToin = {
 const UnitConversion = { mm: ConvertTomm, in: ConvertToin };
 
 export {
-  svgCommandList,
-  defaultSampleCount,
-  defaultLineNumbering,
-  defaultInitialCommand,
-  defaultFill,
+  configFileDefaultValues,
   defaultUnit,
+  errorMessages,
+  svgCommandList,
   UnitConversion,
   units,
   SvgCommand,
