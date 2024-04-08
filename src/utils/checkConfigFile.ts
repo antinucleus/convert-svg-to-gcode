@@ -26,7 +26,7 @@ const checkConfigFile = (fileContents: string) => {
     throw new Error(`"unit" field must be "mm" or "in".`);
   }
 
-  if (!config.width && !config.height) {
+  if (config.width === undefined && config.height === undefined) {
     throw new Error(
       `At least one of the "width" or "height" field must be provided.`
     );
@@ -36,7 +36,7 @@ const checkConfigFile = (fileContents: string) => {
     throw new Error(`"height" field must be number.`);
   }
 
-  if (!config.fill) {
+  if (config.fill === undefined) {
     config.fill = defaultFill;
   } else if (typeof config.fill !== "boolean") {
     throw new Error(`"fill" field must be boolean.`);
