@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 
 const readConfigFile = (filePath) => {
   try {
-    console.info("Reading config file");
     const data = readFileSync(filePath, "utf8");
 
     return data;

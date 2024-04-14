@@ -1,7 +1,5 @@
 import { SvgCommand, GcodeCommand } from "../constants";
-import { getConfig, getGcodes, setGcodes } from "../stores";
 import { pushGcode } from "./gcodeOperations";
-import { convertSvgCommandstoGcommands } from "./convertSvgCommandToGcommand";
 import { calculateCubicBezierCurvePoints } from "./cubicBezierCurveTo";
 import { calculateSmoothCubicBezierCurvePoints } from "./smoothCubicBezierCurveTo";
 import { calculateQuadraticBezierCurvePoints } from "./quadraticBezierCurveTo";
@@ -10,24 +8,6 @@ import { lineTo } from "./lineTo";
 import { moveTo } from "./moveTo";
 import { horizontalLineTo } from "./horizontalLineTo";
 import { verticalLineTo } from "./verticalLineTo";
-
-const pathProcess = (paths) => {
-  const { initialCommand, lineNumbering } = getConfig();
-
-  const gCodes = getGcodes();
-
-  if (initialCommand.length > 0) {
-    for (const ic of initialCommand) {
-      const cmd = `${lineNumbering ? `N${gCodes.length + 1}` : ""} ${ic}`;
-      setGcodes(cmd);
-    }
-  }
-
-  for (const path of paths) {
-    const commandList = convertSvgCommandstoGcommands(path);
-    generateGcode(commandList, lineNumbering);
-  }
-};
 
 const generateGcode = (commandList: any[], lineNumbering: boolean) => {
   let x: number, y: number;
@@ -90,4 +70,4 @@ const generateGcode = (commandList: any[], lineNumbering: boolean) => {
   }
 };
 
-export { pathProcess };
+export { generateGcode };

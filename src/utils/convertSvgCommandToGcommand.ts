@@ -2,6 +2,7 @@ import { svgCommandList } from "../constants";
 import { getConfig, getFileProperties } from "../stores";
 import { calcualteConversion } from "./conversion";
 import { scaleSvgSizeToTargetSize } from "./scaleSvgSizeToTargetSize";
+import { extractPointsFromPath } from "./extractPointsFromPath";
 
 const convertSvgCommandstoGcommands = (d: string[], log = false) => {
   const config = getConfig();
@@ -11,6 +12,7 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
   let gCommand = "";
   let cmd = "";
   let points: Array<number | string> = [];
+
   const values = calcualteConversion(
     config,
     properties.width,
@@ -62,12 +64,5 @@ const convertSvgCommandstoGcommands = (d: string[], log = false) => {
 
   return commandList;
 };
-
-function extractPointsFromPath(path: string) {
-  const regex = /-?\d+\.?\d*(?:e-?\d+)?/g;
-  const matches = path.match(regex);
-
-  return matches.map((match) => parseFloat(match));
-}
 
 export { convertSvgCommandstoGcommands };
