@@ -8,5 +8,7 @@ export type Options = {
   unit: Omit<Units, "pc" | "pt" | "px">;
   width: number;
   height: number;
+  centerX: number;
+  centerY: number;
   fill: boolean;
 };

@@ -10,6 +10,8 @@ describe("initial commands", () => {
     unit: "mm",
     width: 148,
     height: 210,
+    centerX: 0,
+    centerY: 0,
     fill: false,
   };
 

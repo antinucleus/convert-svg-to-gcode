@@ -13,12 +13,12 @@ import {
 const previousPoint = getPreviousPoint();
 const previousCurveEndControlPoint = getPreviousCurveEndControlPoint();
 const previousSvgCommand = getPreviousSvgCommand();
-const { sampleCount } = getConfig();
 
 const calculateSmoothCubicBezierCurvePoints = (
   points: number[],
   cmd: SvgCommand
 ) => {
+  const { sampleCount } = getConfig();
   let start: number[];
   let end: number[];
   let startControlPoint: number[];

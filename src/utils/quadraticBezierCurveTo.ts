@@ -8,12 +8,12 @@ import {
 import { SvgCommand } from "../constants";
 
 const previousPoint = getPreviousPoint();
-const { sampleCount } = getConfig();
 
 const calculateQuadraticBezierCurvePoints = (
   points: number[],
   cmd: SvgCommand
 ) => {
+  const { sampleCount } = getConfig();
   let start: number[];
   let end: number[];
   let controlPoints: Array<Array<number>>;

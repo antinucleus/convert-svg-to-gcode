@@ -4,10 +4,12 @@ const absoluteCommands = ["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"];
 const relativeCommands = ["m", "l", "h", "v", "c", "s", "q", "t", "a", "z"];
 const svgCommandList = absoluteCommands.concat(relativeCommands);
 const configFileDefaultValues = {
-  defaultSampleCount: 30,
+  defaultSampleCount: 15,
   defaultLineNumbering: false,
   defaultInitialCommand: [],
   defaultFill: false,
+  defaultCenterX: 0,
+  defaultCenterY: 0,
 };
 const defultDPI = 72;
 const units = ["mm", "in", "pc", "pt", "px"] as const;
@@ -41,6 +43,12 @@ const configFileErrorMessages = {
   sampleCount: {
     typeError: `"sampleCount" value must be number.`,
     smallerThanZero: `"sampleCount" value must be positive number. If it is 0, default value ${configFileDefaultValues.defaultSampleCount} will be used.`,
+  },
+  centerX: {
+    typeError: `"centerX" value must be number.`,
+  },
+  centerY: {
+    typeError: `"centerY" value must be number.`,
   },
 };
 

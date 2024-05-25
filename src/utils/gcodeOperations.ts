@@ -9,6 +9,8 @@ const pushGcode = (
   x: number,
   y: number,
   lineNumbering: boolean,
+  centerX: number,
+  centerY: number,
   comment?: string,
   log: boolean = false
 ): void | Error => {
@@ -24,7 +26,9 @@ const pushGcode = (
 
   const gcode = `${
     lineNumbering ? `N${gCodes.length + 1}` : ""
-  } ${gcodecmd} X${x} Y${y} Z0 ${comment ? `(${comment})` : ""}`;
+  } ${gcodecmd} X${(x + centerX).toFixed(2)} Y${(y + centerY).toFixed(2)} ${
+    comment ? `(${comment})` : ""
+  }`;
 
   setGcodes(gcode);
   setPreviousSvgCommand(svgcmd);

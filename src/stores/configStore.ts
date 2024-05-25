@@ -6,6 +6,8 @@ const {
   defaultInitialCommand,
   defaultLineNumbering,
   defaultSampleCount,
+  defaultCenterX,
+  defaultCenterY,
 } = configFileDefaultValues;
 
 const initialValues: Options = {
@@ -16,6 +18,8 @@ const initialValues: Options = {
   unit: defaultUnit,
   width: undefined,
   height: undefined,
+  centerX: defaultCenterX,
+  centerY: defaultCenterY,
   fill: defaultFill,
 };
 

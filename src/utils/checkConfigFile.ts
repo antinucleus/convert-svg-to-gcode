@@ -15,6 +15,8 @@ const checkConfigFile = (fileContents: string) => {
     defaultInitialCommand,
     defaultLineNumbering,
     defaultSampleCount,
+    defaultCenterX,
+    defaultCenterY,
   } = configFileDefaultValues;
 
   const {
@@ -27,6 +29,8 @@ const checkConfigFile = (fileContents: string) => {
       svgFileName,
       unit,
       width,
+      centerX,
+      centerY,
     },
   } = errorMessages;
 
@@ -76,6 +80,18 @@ const checkConfigFile = (fileContents: string) => {
     throw new Error(sampleCount.typeError);
   } else if (config.sampleCount < 0) {
     throw new Error(sampleCount.smallerThanZero);
+  }
+
+  if (config.centerX === undefined) {
+    config.centerX = defaultCenterX;
+  } else if (typeof config.centerX !== "number") {
+    throw new Error(centerX.typeError);
+  }
+
+  if (config.centerY === undefined) {
+    config.centerY = defaultCenterY;
+  } else if (typeof config.centerY !== "number") {
+    throw new Error(centerY.typeError);
   }
 
   return config;

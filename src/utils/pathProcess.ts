@@ -3,7 +3,7 @@ import { convertSvgCommandstoGcommands } from "./convertSvgCommandToGcommand";
 import { generateGcode } from "./gcodeGeneretor";
 
 const pathProcess = (paths) => {
-  const { initialCommand, lineNumbering } = getConfig();
+  const { initialCommand, lineNumbering, centerX, centerY } = getConfig();
 
   const gCodes = getGcodes();
 
@@ -16,7 +16,12 @@ const pathProcess = (paths) => {
 
   for (const path of paths) {
     const commandList = convertSvgCommandstoGcommands(path);
-    generateGcode(commandList, lineNumbering);
+    generateGcode({
+      commandList,
+      lineNumbering,
+      centerX,
+      centerY,
+    });
   }
 };
 
