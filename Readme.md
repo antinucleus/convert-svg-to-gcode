@@ -21,7 +21,7 @@ You can see the to-do list and how to use this repo below.
 3. Change directory to repository folder
    `cd convert-svg-to-gcode`
 
-4. Copy the SVG file you want to convert to `convert-svg-to-gcode/src/public` directory. If the file is not there, program will not work.
+4. Copy the SVG file you want to convert to `convert-svg-to-gcode/public` directory. If the file is not there, program will not work.
 
 5. There is `gcode.config.json` file at **root** directory of the project. You can change the values for your needs. Config file fields listed below:
 
@@ -34,6 +34,8 @@ You can see the to-do list and how to use this repo below.
 | `unit`           | "mm"          | string   | mm,in      | ✘                         |
 | `width`          | undefined     | number   | -          | if height is not provided |
 | `height`         | undefined     | number   | -          | if width is not provided  |
+| `centerX`        | 0             | number   | -          | ✘                         |
+| `centerY`        | 0             | number   | -          | ✘                         |
 | `fill`           | false         | boolean  | true,false | ✘                         |
 
 - `svgFileName`: A file name which will be converted to gcode. File must be in public directory as described above. If it is not there, program will not work.
@@ -43,6 +45,8 @@ You can see the to-do list and how to use this repo below.
 - `unit`: Default value is `mm`. This field will be used for digital size to physical size conversion.
 - `width`: Target width size. If `height` is not provided, `width` is required. `height` value will be calculated using aspect ratio of svg image. Both width and height values can be provided.
 - `height`: Target height size. If `width` is not provided, `height` is required. `width` value will be calculated using aspect ratio of svg image. Both width and height values can be provided.
+- `centerX`: If you need to shift center of x axis you can use this field. If it is not provided, `0` will be taken.
+- `centerY`: If you need to shift center of y axis you can use this field. If it is not provided, `0` will be taken.
 - `fill`: Default value is `false`. If it is true, image will fill the given width and height, aspect ratio will be destroyed. The image will be stretched or squished.
 
 Check information about `width`, `height` and `fill` below.
