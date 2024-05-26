@@ -16,7 +16,7 @@ export async function getFile(source) {
   return fileContent;
 }
 
-export async function saveGcodeFile(gcodes) {
+export async function saveGcodeFile(path: string, gcodes) {
   let str = "";
 
   for (const gcode of gcodes) {
@@ -24,7 +24,7 @@ export async function saveGcodeFile(gcodes) {
   }
 
   try {
-    await writeFile("output.gcode", str);
+    await writeFile(path, str);
 
     console.log("File created successfully!");
   } catch (error) {

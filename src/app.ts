@@ -1,5 +1,4 @@
 import { ElementNode, parse } from "svg-parser";
-import { join } from "path";
 
 import {
   getFile,
@@ -12,17 +11,13 @@ import {
 import { setFileProperties, getGcodes, setConfig, resetGcodes } from "./stores";
 
 export const start = () => {
-  const filePath = join(__dirname, "../../gcode.config.json");
-  console.log("CSG FILE PATH:", filePath);
-  console.log("DIR NAME CSG::", __dirname);
-  console.log("CWD NAME CSG::", process.cwd());
+  const basePath =
+    "/home/oxygen/Desktop/PlotterController/plotter-express-server";
 
-  const data = readConfigFile(filePath);
+  const data = readConfigFile(`${basePath}/gcode.config.json`);
   const config = checkConfigFile(data);
 
-  const svgFilePath = join(__dirname, `../../public/${config.svgFileName}`);
-
-  console.log("SVG FILE PATH:", svgFilePath);
+  const svgFilePath = `${basePath}/public/${config.svgFileName}`;
 
   setConfig(config);
 
@@ -43,7 +38,7 @@ export const start = () => {
       pathProcess(allPaths);
 
       const gCodes = getGcodes();
-      saveGcodeFile(gCodes);
+      saveGcodeFile(`${basePath}/output.gcode`, gCodes);
 
       resetGcodes();
       allPaths.length = 0;
