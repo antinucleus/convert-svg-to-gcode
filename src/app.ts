@@ -13,16 +13,11 @@ import { setFileProperties, getGcodes, setConfig, resetGcodes } from "./stores";
 
 export const start = () => {
   const filePath = join(__dirname, "../../gcode.config.json");
-  console.log("CSG FILE PATH:", filePath);
-  console.log("DIR NAME CSG::", __dirname);
-  console.log("CWD NAME CSG::", process.cwd());
 
   const data = readConfigFile(filePath);
   const config = checkConfigFile(data);
 
   const svgFilePath = join(__dirname, `../../public/${config.svgFileName}`);
-
-  console.log("SVG FILE PATH:", svgFilePath);
 
   setConfig(config);
 
@@ -53,4 +48,4 @@ export const start = () => {
     });
 };
 
-// start();
+start();
