@@ -8,4 +8,8 @@ function setGcodes(gCode: string) {
   gCodes.push(gCode);
 }
 
-export { getGcodes, setGcodes };
+function resetGcodes() {
+  gCodes.length = 0;
+}
+
+export { getGcodes, setGcodes, resetGcodes };
